@@ -1,0 +1,62 @@
+<html style="background: blue">This is inline CSS</html>
+<!-- Target single element -->
+
+<!-- This is Internal CSS (target single webpage)-->
+<html>
+    <head>
+        <style>
+            html {
+                background: red;
+            }
+        </style>
+    </head>
+</html>
+
+<!-- This is External CSS (target website)-->
+<html>
+    <head>
+        <link
+            rel="stylesheet"
+            href="./syles.css"
+        />
+        <!-- this links to a extrenal css file -->
+    </head>
+</html>
+
+<!-- Class Selector (multiple elements can have this class) -->
+<h2 class="red-text">Red</h2>
+<h2>Green</h2>
+<p class="red-text">Red as well</p>
+
+<!-- Looks like this in external CSS-->
+.red-text{
+    color: red;
+}
+
+<!-- ID Selector (Only works on one element) -->
+<h2 id="main"></h2>
+ 
+<!-- Looks like this in external CSS-->
+#main {
+    color: red;
+}
+
+<!-- Attribute Selector -->
+<p draggable="true">Drag me</p>
+<p draggable="false">Dont drag</p>
+
+<!-- Looks like this in external CSS-->
+p[draggable]{
+    color: red;
+}
+
+p[draggable="false"]{
+    color: green;
+}
+
+<!-- Universal Selector -->
+<!-- Looks like this in external CSS-->
+*{
+    color: red;
+}
+<!-- Applies Styles to everything -->
