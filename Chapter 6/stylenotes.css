@@ -1,0 +1,18 @@
+h1 {
+    color: #5D3891;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Helvetica, sans-serif;
+ }
+
+ h2 {
+    font-family: "Times New Roman", serif;
+ }/* if there is space in font then use " " */
+
+/* This is hex code , generic font type*/
+
+/* 1em 100% of parent 
+1rem 100% of root (reccommended to use)
+*/
+
+
