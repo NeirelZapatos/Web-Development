@@ -1,0 +1,39 @@
+h1 {
+    color: red;
+    /* color: green !important; This shows that is most important */
+}
+
+/* Comnbining Selectors */
+.test h1 {
+    color: blue;
+}
+
+/* Selects multiple selectors */
+h1, h2 {
+    color: blueviolet;
+}
+
+/* parent > child */
+.box > p {
+    color: firebrick;
+}
+
+/* Decendant selector (apply to a descendent of left side */
+.box li {
+    color: blue;
+}
+
+/* Chaining (an element of type li that has the class "done"*/
+li.done {
+    color: seagreen;
+}
+
+/* Combining Combiners (Combined Descendent and Chaining*/
+ul p.done {
+    font-size: .5rem;
+}
+
+/* determines which element is on top of what */
+p {
+    z-index: -2;
+}
