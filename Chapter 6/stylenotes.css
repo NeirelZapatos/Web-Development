@@ -3,16 +3,36 @@ h1 {
     font-size: 20px;
     font-weight: bold;
     font-family: Helvetica, sans-serif;
- }
+    height: 600px;
+    width: 100%;
+ } 
 
  h2 {
     font-family: "Times New Roman", serif;
  }/* if there is space in font then use " " */
+
 
 /* This is hex code , generic font type*/
 
 /* 1em 100% of parent 
 1rem 100% of root (reccommended to use)
 */
+
+.border {
+   border: 10px solid black;
+   border-top: 0px;
+   border-width: 0px 10px 20px 30px;
+} /* Border Width sets top, right, bottom, and left 
+ if it's two prameters then its top/bottom and right/left */
+
+ .padding {
+   padding: 20px;
+ }/* adds space between element and the border */
+
+ .margin {
+   margin: 10px;
+ }/* adds space outside the border */
+
+ /* its padding then border then margin */
 
 
