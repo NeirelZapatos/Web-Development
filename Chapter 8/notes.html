@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1 {
+            display: block; 
+            /* Takes entire width if page */
+            display: inline;
+            /* default to size of the content */
+            display: inline-block;
+            /* block allows to set height and width, Inline allows for elements to be on the same line */
+            display: none;
+            /* All elements disappears */
+        }
+
+        img {
+            height: 20rem;
+            float: left;
+        }
+
+        footer {
+            clear: left;
+            /* clears it from looking for floating stuff on the left */
+        }
+
+        div {
+            background-color: blue;
+            height: 200px;
+            width: 200px;
+        }
+
+        @media (max-width: 600px) {
+            div {
+                height: 100px;
+                width: 100px;
+            }
+        }
+        /* If width of webpage is less than 600px than use these new parameters */
+
+        @media (min-width: 600px) {
+            h1 {
+                font-size: 15 px;
+                /* if width is greater than 600 px  */
+            }
+        }
+
+        @media (min-width: 600px) and (max-width: 900px) {
+            /* Targets a specific range */
+        }
+
+        @media (max-width: 600px) and (min-width: 900px) {
+            /* Targets anything outside the range */
+        }
+    </style>
+</head>
+<body>
+    <p><span>Testing Span. Span outmatically is inline. THey default to the size of their content</span></p> 
+    <img src="https://i.redd.it/sunny-and-shadow-serpent-v0-th9asg6g83hb1.jpg?width=5500&format=pjpg&auto=webp&s=a97eccad901b163fb692637518cbbb416e3cfcc3" />
+    <p>testing the floating shit</p>
+    <footer>Hello</footer>
+    <p>Flexbox good at a single line</p>
+    <p>Grid is good for column and rows </p>
+    <div></div>
+</body> 
+
+</html>
