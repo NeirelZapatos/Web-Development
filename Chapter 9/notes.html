@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            display: flex;
+            /* Creates like block (each element is 1rem)*/
+            display: inline-flex;
+            /* Creates like inline*/
+            gap: 10px;
+            /* This is flexbox */
+            flex-direction: row;
+            /* Setting main axis to row */
+            flex-direction: row-reverse;
+            /* reverses the row */
+            flex-basis: 10px;
+            /*  Sets the cross axis size (size of the vertical axis in this case) */
+            flex-wrap: wrap;
+            /* If you run out of space it moves it to the next line (should be set on the parent) */
+            justify-content: flex-start;
+            /* elements bunched up on the start of main axis */
+            justify-content: flex-end;
+            justify-content: center;
+            /* Self explainatory */
+            justify-content: space-between;
+            /* creates space between elements */
+            align-items: flex-start;
+            /* muust set the height in order for this to work (changes it based on the cross axis)*/
+            height: 70vh;
+            align-content: center;
+            /* Only works when flex-wrap: wrap (Works when there isn't enough space in a webpage)*/
+            /* Also is used to change the spacing  */
+            flex-flow: column wrap;
+            /* Flex-direction and flex-wrap used at the same time */
+        }
+
+        .green {
+            order: 1;
+            /* sets the order in the row */
+            align-self: center;
+            /* Sets that atrribute to this element only */
+            flex-basis: 100px;
+            /* determines size */
+            flex-grow: 1;
+            /* Allows the element to grow higher than flex-basis */
+            flex-shrink: 1;
+            /* allows the element to shrink lower than flex-basis */
+            flex-basis: 0;
+            /* Auto sizing */
+            flex: 1;
+            /* if a pretty used default */
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>Hello</td>
+            <td>Yooo</td> 
+            <!-- Only Use when actually using a table -->
+        </tr>
+    </table>
+    <div class="container">
+        <div>
+
+        </div>
+    </div>
+</body>
+</html>
