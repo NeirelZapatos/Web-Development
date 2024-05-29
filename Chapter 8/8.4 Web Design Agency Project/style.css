@@ -23,30 +23,45 @@ span {
   color: midnightblue;
 }
 
-.left {
-  flex: 1;
-}
-
-.right {
-  flex: 1;
-}
-
 .tile-image {
-  height: 15rem;
+  height: 200px;
   float: left;
-}
-
-.card-text {
-  margin: 30px;
-  display: inline-block;
-  width: 300px;
-}
-
-.card-title {
-  margin: 30px;
+  margin-right: 50px;
 }
 
 .card {
-  display: block;
+  width: 45%;
 }
 
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+@media (max-width: 680px) {
+  .logo {
+    width: 100px;
+  }
+
+  h1 {
+    font-size: 3.5rem;
+    text-align: center;
+  }
+
+  .card {
+    width: 100%;
+    display: block;
+    margin-bottom: 30px;
+    text-align: justify;
+  }
+
+  .card img {
+    margin-bottom: 10px;
+    width: 100%;
+    display: inline;
+    object-fit: cover;
+  }
+}
