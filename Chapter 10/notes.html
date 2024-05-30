@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            display:grid;
+            grid-template-columns: 1fr 2fr;
+            /* Two rows defined by the ratio */
+            grid-template-rows: 1fr 1fr;
+            /* Two columns defined by the ratio */
+            gap: 10px;
+            /* Space between */
+            grid-template-rows: 100px 200px;
+            grid-template-columns: 400px 800px;
+            /* Fixed size grids (meaning not resposive if webpage changes size) */
+            grid-template-columns: 100px auto;
+            /* Grid will take 100% of the width */
+            grid-template-rows: 200px auto;
+            /* If will try to fit the content */
+            grid-template-columns: 200px minmax(400px, 800px);
+            /* Changes the min and max of the grid columns */
+            grid-template-rows: repeat(2, 200px);
+            /* Repeat of size 200px for two times */
+            grid-auto-rows: 300px;
+            /* automaitcally size new rows that are not determined within the span previously */
+        }
+    </style>
+</head>
+<body>
+    <p>flexbox is good to align content on a 1-D Line</p>
+    <p>Grid is good for a 2-D layouts</p>
+    <p>It's best to combine the both of them since they have different strengths and weaknesses</p>
+
+    <div class="container">
+        <p>asdasd</p>
+        <P>asdasdads</P>
+        <p>asdadsasd</p>
+        <p>asdasdasd</p>
+    </div>
+</body>
+</html>
