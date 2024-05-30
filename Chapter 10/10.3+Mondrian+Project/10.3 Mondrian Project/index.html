@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mondrian Project</title>
+  <style>
+    /* 
+    Write your CSS here 
+    Gap Colour: #000
+    White: #F0F1EC
+    Red: #E72F24
+    Black: #232629
+    Blue: #004592
+    Yellow: #F9D01E
+
+    For dimensions, see dimensions.png image.
+    HINT: Remember you can't change the properties of grid lines.
+    But grid lines are transparent!
+    */
+
+    .container {
+      height: 748px;
+      width: 748px;
+      background-color: black;
+      display: grid;
+      grid-template-rows: 414px 130px 155px 20px;
+      grid-template-columns: 320px 198px 153px 50px;
+      gap: 9px
+    }
+
+    .red {
+      background-color: #E72F24;
+    }
+
+    .blue {
+      background-color: #004592;
+      grid-column-start: 4;
+      grid-row-start: 2;
+    }
+
+    .yellow {
+      background-color: #F9D01E;
+      grid-column-start: 2;
+      grid-row-start: 4;
+    }
+
+    .black {
+      background-color: #232629;
+      grid-column-start: 3;
+      grid-row-start: 4;
+    }
+
+  </style>
+</head>
+
+<body>
+  <!-- Write your HTML here -->
+  <div class="container">
+    <div class="red"></div>
+    <div class="white w1"></div>
+    <div class="white w2"></div>
+    <div class="white w3"></div>
+
+    <div class="blue"></div>
+    <div class="yellow"></div>
+    <div class="black"></div>
+    <!-- Unfinised but you get the idea -->
+  </div>
+  
+</body>
+
+</html>

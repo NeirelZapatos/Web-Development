@@ -24,8 +24,20 @@
             /* Changes the min and max of the grid columns */
             grid-template-rows: repeat(2, 200px);
             /* Repeat of size 200px for two times */
+            grid-template-columns: repeat(8, 12.5%);
+            /* Same but based on the percentage of the width */
             grid-auto-rows: 300px;
             /* automaitcally size new rows that are not determined within the span previously */
+            grid-column-start: 1;
+            /* Start if elemenet */
+            grid-column-end: -1;
+            /* end of element. In this case the right most on screen */
+            order: 1;
+            /* Order of importance (higher gets put in last) */
+            grid-template-columns: 50%;
+            /* makes each column take 50% of the width */
+            grid-template-rows: 20% 20% 20% 20% 20%;
+            /* makes each row take 20% of the height (there are 5 rows) */
         }
     </style>
 </head>
