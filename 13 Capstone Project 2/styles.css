@@ -1,0 +1,20 @@
+body {
+    background-color: #1a1a1a;
+}
+
+.full-height {
+    height: 100vh;
+}
+
+.hero {
+    color: #fafafa;
+    font-family: "Montserrat", sans-serif;
+}
+
+.name {
+    color: #ff4d5a;
+}
+
+.hero h1 {
+    font-size: 4rem;
+}
