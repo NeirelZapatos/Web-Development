@@ -6,7 +6,11 @@ body {
     height: 100vh;
 }
 
-.hero {
+.half-height {
+    height: 50vh;
+}
+
+.montserrat {
     color: #fafafa;
     font-family: "Montserrat", sans-serif;
 }
@@ -17,4 +21,45 @@ body {
 
 .hero h1 {
     font-size: 4rem;
+}
+
+.divider {
+    background-color: #262626;
+    border-bottom: #1a1a1a;
+    box-shadow: 0 4px 4px rgba(0,0,0,0.3);
+    height: 2rem;
+}
+
+.title {
+    font-size : 4rem;
+    color: #ff4d5a;
+}
+
+p {
+    font-size: 1.2rem;
+    line-height: 2rem;
+}
+
+.rounded {
+    border-radius: 50%;
+}
+
+.project-img {
+    border: 5px solid white;
+}
+
+a {
+    color:#ff4d5a;
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+
+.heading-arrow {
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+
+    transform: rotate(90deg);
+    fill: #ff4d5a;
+    transition: all 0.3s;
 }
