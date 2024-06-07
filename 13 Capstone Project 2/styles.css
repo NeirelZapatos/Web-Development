@@ -63,3 +63,7 @@ a {
     fill: #ff4d5a;
     transition: all 0.3s;
 }
+
+.max-height {
+    max-height: 9rem;
+}
