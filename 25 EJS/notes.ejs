@@ -23,5 +23,12 @@
 
     <!-- Insert another EJS file -->
      <%- include("header.ejs") %>
+
+     <!-- To check if a variable exists -->
+      <% if (locals.fruits) { %>
+        <% // do somthing %>
+      <% } %>
+
+      <!-- You have to render ejs files and can't do sendFile() !important -->
 </body>
 </html>
