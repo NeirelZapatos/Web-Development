@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/update" method="POST">
+        <input type="text" name="newTitle" placeholder="Title" value="<%= posts[postIndex]["title"] %>">
+        <textarea name="newMessage" placeholder="message"><%= posts[postIndex]["message"] %></textarea>
+        <input type="submit" value="OK">
+    </form>
+</body>
+</html>

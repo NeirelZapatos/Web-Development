@@ -12,10 +12,11 @@
         <input type="text" name="message" placeholder="Message">
         <input type="submit" value="OK">
     </form>
-    <% if (locals.titles && locals.messages) { %>
-        <% for (var i = 0; i < titles.length; i++) { %>
-            <h2><%= titles[i] %></h2>
-            <h3><%= messages[i] %></h3>
+    <% if (locals.posts) { %>
+        <% for (var i = 0; i < posts.length; i++) { %>
+            <h2><%= posts[i]["title"] %></h2>
+            <h3><%= posts[i]["message"] %></h3>
+            <a href="/update-page/<%= i %>">Update</a>
         <% } %>
     <% } %>
 </body>

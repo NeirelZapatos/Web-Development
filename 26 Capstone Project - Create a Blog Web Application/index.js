@@ -4,15 +4,12 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const blog = {
-    titles: [],
-    messages: []
-};
+const blog = [];
 
 const app = express();
 const port = 3000;
 
-app.use(express.static(__dirname + "/public"));
+app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
@@ -22,10 +19,23 @@ app.get("/", (req, res) => {
 
 app.post("/submit", (req, res) => {
     console.log("Submitting new post");
-    blog["titles"].push(req.body["title"]);
-    blog["messages"].push(req.body["message"]);
+    blog.push({
+        title: req.body["title"],
+        message: req.body["message"]
+    });
     console.log(blog);
-    res.render(__dirname + "/views/index.ejs", blog);
+    res.render(__dirname + "/views/index.ejs", { posts : blog });
+});
+
+app.get("/update-page/:index", (req, res) => {
+    res.render(__dirname + "/views/update-page.ejs", {
+        posts: blog,
+        postIndex: req.params.index
+    });
+});
+
+app.post("/update", (req, res) => {
+
 });
 
 app.listen(port, () => {
