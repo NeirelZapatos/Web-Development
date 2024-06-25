@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Welcome to Neirel's Blog</h1>
+    <form action="/submit" method="POST">
+        <input type="text" name="title" placeholder="Title">
+        <input type="text" name="message" placeholder="Message">
+        <input type="submit" value="OK">
+    </form>
+    <% if (locals.titles && locals.messages) { %>
+        <% for (var i = 0; i < titles.length; i++) { %>
+            <h2><%= titles[i] %></h2>
+            <h3><%= messages[i] %></h3>
+        <% } %>
+    <% } %>
+</body>
+</html>
