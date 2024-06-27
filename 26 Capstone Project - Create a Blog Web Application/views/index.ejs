@@ -1,23 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Welcome to Neirel's Blog</h1>
-    <form action="/submit" method="POST">
-        <input type="text" name="title" placeholder="Title">
-        <input type="text" name="message" placeholder="Message">
-        <input type="submit" value="OK">
-    </form>
-    <% if (locals.posts) { %>
-        <% for (var i = 0; i < posts.length; i++) { %>
-            <h2><%= posts[i]["title"] %></h2>
-            <h3><%= posts[i]["message"] %></h3>
-            <a href="/update-page/<%= i %>">Update</a>
-        <% } %>
-    <% } %>
-</body>
-</html>
+<%- include("partials/header.ejs") %>
+
+
+<div class="container col-8 d-flex justify-content-center align-items-center">
+    <div class="row flex-lg-row">
+        <div class="col-lg-4">
+            <h1>Welcome to Neirel's Blog</h1>
+        </div>
+        
+    
+        <div class="col-lg-8 d-flex justify-content-center align-items-center">
+            <form action="/submit" method="POST">
+                <input type="text" name="title" placeholder="Title">
+                <textarea name="message" placeholder="Message"></textarea>
+                <input type="submit" value="OK">
+            </form>
+        
+            <% if (locals.posts) { %>
+                <% for (var i = 0; i < posts.length; i++) { %>
+                    <h2><%= posts[i]["title"] %></h2>
+                    <h3><%= posts[i]["message"] %></h3>
+                    <a href="/view-page/<%= i %>">View Post</a>
+                <% } %>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+
+<%- include("partials/footer.ejs") %>

@@ -1,0 +1,8 @@
+<%- include("partials/header.ejs") %>
+
+<h1><%= posts[postIndex]["title"] %></h1>
+<h2><%= posts[postIndex]["message"] %></h2>
+<a href="/update-page/<%= postIndex %>">Update Post</a>
+<a href="/delete/<%= postIndex %>">Delete Post</a>
+
+<%- include("partials/footer.ejs") %>
