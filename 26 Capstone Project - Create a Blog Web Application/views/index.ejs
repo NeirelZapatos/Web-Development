@@ -1,27 +1,33 @@
 <%- include("partials/header.ejs") %>
 
 
-<div class="container col-8 d-flex justify-content-center align-items-center">
-    <div class="row flex-lg-row">
-        <div class="col-lg-4">
-            <h1>Welcome to Neirel's Blog</h1>
+<div class="container d-flex justify-content-evenly my-3 ">
+    <div class="row col-lg-11 text-white rounded main p-5">
+        <div class="col-lg-4 ">
+            <h1 class="text-center">Welcome to Neirel's Blog</h1>
         </div>
         
-    
-        <div class="col-lg-8 d-flex justify-content-center align-items-center">
-            <form action="/submit" method="POST">
-                <input type="text" name="title" placeholder="Title">
-                <textarea name="message" placeholder="Message"></textarea>
-                <input type="submit" value="OK">
-            </form>
-        
-            <% if (locals.posts) { %>
-                <% for (var i = 0; i < posts.length; i++) { %>
-                    <h2><%= posts[i]["title"] %></h2>
-                    <h3><%= posts[i]["message"] %></h3>
-                    <a href="/view-page/<%= i %>">View Post</a>
+        <div class="col-lg-8 d-flex flex-column">
+            <div class="">
+                <form action="/submit" method="POST">
+                    <input type="text" name="title" placeholder="Title" class="form-control">
+                    <textarea name="message" placeholder="Message" class="form-control"></textarea>
+                    <input type="submit" value="OK">
+                </form>
+            </div>
+            
+            <div>
+                <% if (locals.posts) { %>
+                    <% for (var i = 0; i < posts.length; i++) { %>
+                        <div class="my-3">
+                            <h2><%= posts[i]["title"] %></h2>
+                            <h3><%= posts[i]["message"] %></h3>
+                            <a href="/view-page/<%= i %>">View Post</a>
+                        </div>
+                    <% } %>
                 <% } %>
-            <% } %>
+            </div>
+            
         </div>
     </div>
 </div>
