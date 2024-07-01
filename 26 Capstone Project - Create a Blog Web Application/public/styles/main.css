@@ -1,8 +1,24 @@
 .main {
-    background-color: #262626;
-    border: 5px solid #800000;
+    background-color: rgb(90, 114, 160);
+    border: 5px solid rgb(131, 180, 255);
 }
 
 .complete-bg {
-    background-color: #0F0F0F;
+    background-color: rgb(131, 180, 255);
+}
+
+.white-text {
+    color: rgb(253, 255, 226);
+}
+
+.background-image {
+    background-image: url('../images/blue-clouds-day-fluffy-53594.jpeg');
+    height: 100%;
+    background-size: cover;
+}
+
+.me {
+    width: 50%; /* Make the image take up the full width of the container */
+    height: auto; /* Maintain the image's aspect ratio */
+    
 }
