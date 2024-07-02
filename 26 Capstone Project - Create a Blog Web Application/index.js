@@ -23,9 +23,17 @@ app.get("/", (req, res) => {
 // creating new posts
 app.post("/submit", (req, res) => {
     console.log("Submitting new post");
+
+    var date = new Date();
+    var dd = String(date.getDate()).padStart(2, '0');
+    var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = date.getFullYear();
+    var today = mm + '/' + dd + '/' + yyyy;
+
     blog.push({
         title: req.body["title"],
-        message: req.body["message"]
+        message: req.body["message"],
+        date: today
     });
     console.log(blog);
     res.redirect("/");
