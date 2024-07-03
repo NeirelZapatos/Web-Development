@@ -1,9 +1,14 @@
 <%- include("partials/header.ejs") %>
 
-<form action="/update/<%= postIndex %>" method="POST">
-    <input type="text" name="newTitle" placeholder="Title" value="<%= posts[postIndex]["title"] %>">
-    <textarea name="newMessage" placeholder="message"><%= posts[postIndex]["message"] %></textarea>
-    <input type="submit" value="OK">
-</form>
+<div class="container d-flex justify-content-evenly my-3 ">
+    <div class="row col-lg-11 white-text rounded main p-5">
+        <form action="/update/<%= postIndex %>" method="POST">
+            <input type="text" name="newTitle" placeholder="Title" class="form-control mb-2" value="<%= posts[postIndex]["title"] %>">
+            <textarea name="newMessage" placeholder="Message" class="form-control mb-2"><%= posts[postIndex]["message"] %></textarea>
+            <button type="submit" class="btn btn-primary">Post</button>
+        </form>
+    </div>
+</div>
+
 
 <%- include("partials/footer.ejs") %>

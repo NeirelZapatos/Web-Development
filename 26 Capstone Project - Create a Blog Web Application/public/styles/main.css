@@ -31,3 +31,81 @@
     background-color: rgb(253, 255, 226);
     height: 2px;
 }
+
+.title {
+    font-size: 2rem;
+    /* transition: .3s ease; */
+    transform-origin: center center;
+}
+
+.title:hover {
+    transform: scale(1.01);
+}
+
+.view-title {
+    font-size: 3rem;
+    /* transition: .3s ease; */
+    transform-origin: center center;
+}
+
+.remove-styling {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit color from parent element */
+}
+
+.dropdown-pos {
+    position: absolute;
+    bottom: 11.5rem;
+    left: 58rem;
+}
+
+.btn-secondary {
+    background-color: rgb(131, 180, 255) !important;
+    border-color: rgb(253, 255, 226) !important;
+    border-width: 2px !important;
+}
+
+.form-control {
+    background-color: rgb(131, 180, 255) !important;
+    border-color: rgb(253, 255, 226) !important;
+    border-width: 2px !important;
+}
+
+.btn-primary {
+    background-color: rgb(131, 180, 255) !important;
+    border-color: rgb(253, 255, 226) !important;
+    border-width: 2px !important;
+}
+
+.form-control::placeholder {
+    color: rgb(253, 255, 226) !important;
+}
+
+textarea.form-control {
+    color: rgb(253, 255, 226) !important;
+}
+
+textarea.form-control {
+    color: rgb(253, 255, 226) !important;
+}
+
+input.form-control {
+    color: rgb(253, 255, 226) !important;
+}
+
+.dropdown-menu {
+    background-color: rgb(131, 180, 255) !important;
+    border-color: rgb(253, 255, 226) !important;
+    border-width: 2px !important;
+    
+}
+
+.dropdown-item {
+    color: rgb(253, 255, 226) !important;
+}
+
+.sticky-div {
+    position: sticky;
+    top: 65px;
+}
+

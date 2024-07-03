@@ -2,27 +2,30 @@
 
 <div class="container d-flex justify-content-evenly my-3 ">
     <div class="row col-lg-11 white-text rounded main p-5">
-        <div class="col-lg-4 d-flex flex-column align-items-center">
-            <img src="/images/e1263bed500ac5709a8419a31fcce318 (1).jpg" alt="image of blog poster" class="me rounded-circle mb-3"/>
-            <h1 class="">Hello I'm Neirel, a Web Developer</h1>
+        <div class="col-lg-4">
+            <div class="d-flex flex-column align-items-center sticky-div">
+                <img src="/images/e1263bed500ac5709a8419a31fcce318 (1).jpg" alt="image of blog poster" class="me rounded-circle mb-3 img-fluid"/>
+                <h1 class="text-center">Hello I'm Neirel, a Web Developer</h1>
+            </div> 
         </div>
         
         <div class="col-lg-8 d-flex flex-column">
             <div class="">
-                <form action="/submit" method="POST">
-                    <input type="text" name="title" placeholder="Title" class="form-control">
-                    <textarea name="message" placeholder="Message" class="form-control"></textarea>
-                    <input type="submit" value="OK">
+                <form class="was-validated" action="/submit" method="POST">
+                    <input type="text" name="title" placeholder="Title" class="form-control mb-2" required>
+                    <textarea name="message" placeholder="Message" class="form-control mb-2" rows="5" required></textarea>
+                    <button type="submit" class="btn btn-primary">Post</button>
                 </form>
             </div>
             
             <div>
                 <% if (locals.posts) { %>
-                    <% for (var i = 0; i < posts.length; i++) { %>
+                    <% for (var i = posts.length - 1; i >= 0; i--) { %>
                         <div class="my-3">
-                            <h2><%= posts[i]["title"] %></h2>
+                            <a href="/view-page/<%= i %>" class="remove-styling">
+                                <h2 class="title"><%= posts[i]["title"] %></h2>
+                            </a>
                             <p class="date"><%= posts[i]["date"] %></p>
-                            <a href="/view-page/<%= i %>">View Post</a>
                             <hr class="styled-hr">
                         </div>
                     <% } %>
@@ -32,6 +35,8 @@
         </div>
     </div>
 </div>
+
+
 
 
 <%- include("partials/footer.ejs") %>

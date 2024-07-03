@@ -6,11 +6,13 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const blog = [];
 
+
 const app = express();
 const port = 3000;
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
+
 
 // home page
 app.get("/", (req, res) => {
@@ -35,6 +37,7 @@ app.post("/submit", (req, res) => {
         message: req.body["message"],
         date: today
     });
+    
     console.log(blog);
     res.redirect("/");
 });
@@ -64,7 +67,7 @@ app.post("/update/:index", (req, res) => {
 
 // deletes a post
 app.get("/delete/:index", (req, res) => {
-    blog.splice(req.params.index);
+    blog.splice(req.params.index, 1);
     console.log(blog);
     res.redirect("/");
 });
