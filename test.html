@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Dropdown in Container</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css">
+    <style>
+        .main {
+            background-color: #4a69bd;
+            color: white;
+        }
+        .title-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container my-3">
+        <div class="row col-lg-11 white-text rounded main p-5 d-flex flex-column">
+            <div class="title-container">
+                <div>
+                    <h1 class="view-title fw-bold"><%= posts[postIndex]["title"] %></h1>
+                    <p class="date"><%= posts[postIndex]["date"] %></p>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown button
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="/update-page/<%= postIndex %>">Edit Post</a></li>
+                        <li><a class="dropdown-item" href="/delete/<%= postIndex %>">Delete Post</a></li>
+                    </ul>
+                </div>
+            </div>
+            <h2><%= posts[postIndex]["message"] %></h2>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

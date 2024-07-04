@@ -4,7 +4,13 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const blog = [];
+const blog = [
+    {
+        title: "Lorem Ipsum",
+        message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vestibulum, eros aliquam rhoncus sollicitudin, urna nisl rutrum justo, a rhoncus neque sapien at ligula. Ut magna orci, efficitur vitae porttitor eget, sagittis et risus. Phasellus vel dictum mi. Sed in fringilla magna. Nulla pulvinar malesuada metus porta auctor. Aliquam in sem aliquam, tempor massa eu, varius nisl. Ut feugiat lacinia est a semper. In tortor elit, cursus fermentum tincidunt vitae, facilisis in nulla. Nullam consectetur ex sit amet volutpat feugiat. Pellentesque non finibus tellus. Mauris luctus ipsum orci, eget luctus nisl dictum sed. Mauris vitae massa a augue ornare venenatis eu eu urna. Sed interdum, nunc vel lacinia suscipit, lorem libero consectetur quam, ac commodo nisi ante eget turpis. Proin ultricies augue sit amet tortor maximus aliquet. Duis ullamcorper, lorem eget luctus fermentum, tellus magna laoreet leo, non luctus urna orci et ligula.",
+        date: "11-23-2015"
+    }
+];
 
 
 const app = express();

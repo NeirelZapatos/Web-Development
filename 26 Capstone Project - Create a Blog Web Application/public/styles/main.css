@@ -13,14 +13,17 @@
 
 .background-image {
     background-image: url('../images/blue-clouds-day-fluffy-53594.jpeg');
-    height: 100%;
     background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
 }
 
 .me {
     width: 50%; /* Make the image take up the full width of the container */
     height: auto; /* Maintain the image's aspect ratio */
-    
 }
 
 .date {
@@ -44,8 +47,9 @@
 
 .view-title {
     font-size: 3rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
     /* transition: .3s ease; */
-    transform-origin: center center;
 }
 
 .remove-styling {
@@ -109,3 +113,18 @@ input.form-control {
     top: 65px;
 }
 
+.title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.back-arrow {
+    fill: white !important;
+}
+
+h2 {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
