@@ -4,7 +4,7 @@
     <div class="row col-lg-11 white-text rounded main p-5">
         <form action="/update/<%= postIndex %>" method="POST">
             <input type="text" name="newTitle" placeholder="Title" class="form-control mb-2" value="<%= posts[postIndex]["title"] %>">
-            <textarea name="newMessage" placeholder="Message" class="form-control mb-2"><%= posts[postIndex]["message"] %></textarea>
+            <textarea name="newMessage" placeholder="Message" class="form-control mb-2" rows="5"><%= posts[postIndex]["message"] %></textarea>
             <button type="submit" class="btn btn-primary">Post</button>
         </form>
     </div>
