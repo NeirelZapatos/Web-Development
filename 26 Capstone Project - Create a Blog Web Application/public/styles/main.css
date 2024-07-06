@@ -128,3 +128,8 @@ h2 {
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
+
+.divider {
+    background-color: rgb(131, 180, 255);
+    height: 4rem;
+}
