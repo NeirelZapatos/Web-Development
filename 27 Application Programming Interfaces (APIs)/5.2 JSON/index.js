@@ -1,8 +1,13 @@
 import express from "express";
 import bodyParser from "body-parser";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 const port = 3000;
+
+var recipeInfo;
 
 //Step 1: Run the solution.js file without looking at the code.
 //Step 2: You can go to the recipe.json file to see the full structure of the recipeJSON below.
@@ -13,12 +18,39 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-  res.render("index.ejs");
+  res.render(__dirname + "/views/index.ejs", {
+    recipe: recipeInfo
+  });
 });
 
 app.post("/recipe", (req, res) => {
   //Step 3: Write your code here to make this behave like the solution website.
+  const recipeData = JSON.parse(recipeJSON)
+
+  switch (req.body["choice"]) {
+    case "chicken":
+      var proteinNum = 0;
+      break;
+    case "beef":
+      var proteinNum = 1;
+      break;
+    case "fish":
+      var proteinNum = 2;
+      break;
+    default:
+      console.log("error has occured.")
+  }
+
+  recipeInfo = {
+    proteinName: recipeData[proteinNum]["ingredients"]["protein"]["name"],
+    proteinPreparation: recipeData[proteinNum]["ingredients"]["protein"]["preparation"],
+    salsaName: recipeData[proteinNum]["ingredients"]["salsa"]["name"],
+    toppings: recipeData[proteinNum]["ingredients"]["toppings"]
+  };
+  console.log(recipeInfo);
+
   //Step 4: Add code to views/index.ejs to use the recieved recipe object.
+  res.redirect("/");
 });
 
 app.listen(port, () => {

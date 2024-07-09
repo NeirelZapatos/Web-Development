@@ -1,12 +1,22 @@
 <%- include("partials/header.ejs") %>
 
-<div class="container d-flex justify-content-evenly my-3 ">
-    <div class="row col-lg-11 white-text rounded main p-5">
-        <form action="/update/<%= postIndex %>" method="POST">
-            <input type="text" name="newTitle" placeholder="Title" class="form-control mb-2" value="<%= posts[postIndex]["title"] %>">
-            <textarea name="newMessage" placeholder="Message" class="form-control mb-2" rows="5"><%= posts[postIndex]["message"] %></textarea>
-            <button type="submit" class="btn btn-primary">Post</button>
-        </form>
+<div class="container my-3">
+    <div class="row col-lg-12 white-text rounded main">
+        <div class="col-12 d-flex justify-content-between pt-3 px-3">
+            <a href="/" class="remove-styling">
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+              </svg>
+            </a>
+        </div>
+        <div class="px-5 pb-5">
+            <h1>Edit Post</h1>
+            <form action="/update/<%= postIndex %>" method="POST">
+                <input type="text" name="newTitle" placeholder="Title" class="form-control mb-2" value="<%= posts[postIndex]["title"] %>">
+                <textarea name="newMessage" placeholder="Message" class="form-control mb-2" rows="10"><%= posts[postIndex]["message"] %></textarea>
+                <button type="submit" class="btn btn-primary">Post</button>
+            </form>
+        </div>
     </div>
 </div>
 
