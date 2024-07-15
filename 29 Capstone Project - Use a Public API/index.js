@@ -25,27 +25,73 @@ app.post("/food-summary", async (req, res) => {
     try {
         const response = await axios.get(URL + `?api_key=${apiKey}&query=${food}&pageSize=1&pageNumber=1&brandOwner=${brand}`);
         const result = response.data;
+        const foodFacts = result.foods[0].foodNutrients
+        var protein;
+        var fat;
+        var carbs;
+        var calories;
+        var sugar;
+        var fiber;
+        var sodium;
+        var cholesterol;
+        var transFat;
+        var saturatedFat;
+
+        for (var i = 0; i < result.foods[0].foodNutrients.length; i++){
+            switch(foodFacts[i].nutrientId) {
+                case 1003:
+                    protein = foodFacts[i].value;
+                    break;
+                case 1004:
+                    fat = foodFacts[i].value;
+                    break;
+                case 1005:
+                    carbs = foodFacts[i].value;
+                    break;
+                case 1008:
+                    calories = foodFacts[i].value;
+                    console.log(foodFacts[i]);
+                    break;
+                case 2000:
+                    sugar = foodFacts[i].value;
+                    break;
+                case 1079:
+                    fiber = foodFacts[i].value;
+                    break;
+                case 1093:
+                    sodium = foodFacts[i].value;
+                    break;
+                case 1253:
+                    cholesterol = foodFacts[i].value;
+                    break;
+                case 1257:
+                    transFat = foodFacts[i].value;
+                    break;
+                case 1258:
+                    saturatedFat = foodFacts[i].value;
+                    break;
+                default:
+                    console.log("Not important fact");
+                    break;
+            }
+        }
+
+        var servingSize = result.foods[0].servingSize;
 
         const nutrition = {
-            foodName: result.food[0].description,
-            brandName: result.food[0].brandOwner,
-            servingSize: result.foods[0].servingSize,
-            protein: result.foods[0].foodNutrients[0].value,
-            fat: result.foods[0].foodNutrients[1].value,
-            carbs: result.foods[0].foodNutrients[2].value,
-            calories: result.foods[0].foodNutrients[3].value,
-            sugar: result.foods[0].foodNutrients[4].value,
-            fiber: result.foods[0].foodNutrients[5].value,
-            calcium: result.foods[0].foodNutrients[6].value,
-            iron: result.foods[0].foodNutrients[7].value,
-            postassium: result.foods[0].foodNutrients[8].value,
-            sodium: result.foods[0].foodNutrients[9].value,
-            vitaminD: result.foods[0].foodNutrients[10].value,
-            vitaminE: result.foods[0].foodNutrients[11].value,
-            Niacin: result.foods[0].foodNutrients[12].value,
-            cholesterol: result.foods[0].foodNutrients[13].value,
-            transFat: result.foods[0].foodNutrients[14].value,
-            saturatedFat: result.foods[0].foodNutrients[15].value
+            foodName: result.foods[0].description,
+            brandName: result.foods[0].brandOwner,
+            servingSize: servingSize,
+            protein: ((protein / 100) * servingSize).toFixed(1),
+            fat: ((fat / 100) * servingSize).toFixed(1),
+            carbs: ((carbs / 100) * servingSize).toFixed(1),
+            calories: ((calories / 100) * servingSize).toFixed(1),
+            sugar: ((sugar / 100) * servingSize).toFixed(1),
+            fiber: ((fiber / 100) * servingSize).toFixed(1),
+            sodium: ((sodium / 100) * servingSize).toFixed(1),
+            cholesterol: ((cholesterol / 100) * servingSize).toFixed(1),
+            transFat: ((transFat / 100) * servingSize).toFixed(1),
+            saturatedFat: ((saturatedFat / 100) * servingSize).toFixed(1)
         }
         
         res.render(__dirname + "/views/index.ejs", {

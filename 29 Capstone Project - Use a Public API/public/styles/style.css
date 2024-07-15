@@ -1,0 +1,21 @@
+.background-image {
+    background-image: url('../images/Designer.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.main {
+    background-color: rgb(57, 153, 24);
+    border: 5px solid rgb(255, 119, 119);
+}
+
+h1 {
+    color: rgb(236, 255, 230);
+    font-size: 2rem;
+}
+
+
