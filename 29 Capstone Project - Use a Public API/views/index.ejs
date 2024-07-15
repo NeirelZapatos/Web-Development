@@ -6,8 +6,14 @@
     <title>Document</title>
 </head>
 <body>
-    <form method="POST" action="">
-        <textarea name="message" placeholder="text"></textarea>
+    <form method="POST" action="/food-summary">
+        <input name="query" placeholder="text">
+        <input name="brandOwner" placeholder="brand">
+        <button type="submit">Get Nutrition Facts</button>
     </form>
+
+    <% if (locals.foodData) { %>
+        <p>Serving Size: <%= foodData.servingSize %>g</p>
+    <% } %>
 </body>
 </html>
