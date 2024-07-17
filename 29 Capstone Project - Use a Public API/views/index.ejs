@@ -9,29 +9,33 @@
 </head>
 <body class="background-color">
     <div class="d-flex flex-column justify-content-center align-items-center full-height">
-        <h1 class="mb-3" id="title">Website Summarizer</h1>
-        <form method="POST" action="/summary" class="d-flex">
-            <input name="url" placeholder="Enter in URL" class="form-control mx-2" required>
-            <button type="submit" class="btn btn-primary"></button>
-        </form>
+        <div class="mb-3">
+            <h1 class="mb-3" id="title">Website Summarizer</h1>
+            <form method="POST" action="/summary" class="d-flex">
+                <input name="url" placeholder="Enter in URL" class="form-control mx-2" required>
+                <button type="submit" class="btn">Summarize</button>
+            </form>
+        </div>
+        
         
         <% if (locals.summary) { %>
             <div class="container col-xxl-8 px-4 py-5">
-                <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-                <div class="col-10 col-sm-8 col-lg-6">
-                    <img src="<%= summary.image %>" class="d-block mx-lg-auto img-fluid" alt="logo of <%= summary.title %>" height="500" loading="lazy">
-                </div>
-                <div class="col-lg-6">
-                    <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3"><%= summary.title %></h1>
-                    <p class="lead"><%= summary.description %></p>
-                </div>
+                <div class="row flex-lg-row-reverse align-items-center g-5 pb-5 rounded" id="box">
+                    <div class="col-10 col-sm-8 col-lg-6">
+                        <img src="<%= summary.image %>" class="d-block mx-lg-auto img-fluid" alt="logo of <%= summary.title %>" height="500" loading="lazy">
+                    </div>
+                    <div class="col-lg-6">
+                        <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3" id="text-title"><%= summary.title %></h1>
+                        <p class="lead" id="text"><%= summary.description %></p>
+                    </div>
                 </div>
             </div>
         <% } %>
-    </div>
-    
 
-    
+        <% if (locals.errorMessage) { %>
+            <p><%= errorMessage %></p>
+        <% } %>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

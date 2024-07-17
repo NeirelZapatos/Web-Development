@@ -8,4 +8,23 @@
 
 #title {
     color: rgb(34, 40, 49);
+    font-size: 5rem;
+}
+
+.btn {
+    background-color: rgb(0, 173, 181) !important;
+    color: rgb(34, 40, 49) !important;
+}
+
+#box {
+    background-color: rgb(57, 62, 70);
+    border: 5px solid rgb(0, 173, 181);
+}
+
+#text{
+    color: rgb(238, 238, 238);
+}
+
+#text-title {
+    color: rgb(220, 220, 220) !important;
 }

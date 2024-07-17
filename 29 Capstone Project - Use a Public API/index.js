@@ -30,6 +30,9 @@ app.post("/summary", async (req, res) => {
         });
     } catch (error) {
         console.log(error.response.data);
+        res.render(__dirname + "/views/index.ejs", {
+            errorMessage: "Website is unable to be summarized. Please try another website."
+        });
     }
 });
 
