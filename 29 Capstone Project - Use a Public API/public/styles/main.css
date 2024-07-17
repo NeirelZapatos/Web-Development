@@ -1,0 +1,11 @@
+.full-height {
+    height: 100vh;
+}
+
+.background-color {
+    background-color: rgb(238, 238, 238);
+}
+
+#title {
+    color: rgb(34, 40, 49);
+}
