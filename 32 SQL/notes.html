@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="https://sqliteonline.com/#fiddle-5bbdbaef7288bo2ajn2wly03">SQL Practice</a>
+    <h1>Create a table</h1>
+    <p>CREATE TABLE products (
+        id INT NOT NULL,
+        name STRING,
+        price MONEY,
+        PRIMARY KEY (id)
+        )</p>
+    
+    <h1>Insert into a table</h1>
+    <p>INSERT INTO products
+        VALUES (1, 'Pen', 1.20)</p>
+
+    <h1>Insert with not all data points</h1>
+    <p>INSERT INTO products (id, name)
+        VALUES (2, 'Pencil')</p>
+
+    <h1>Show the table</h1>
+    <p>SELECT * FROM products </p>
+
+    <h1>Show specific columns</h1>
+    <p>SELECT name, price FROM products</p>
+
+    <h1>Show specfici row</h1>
+    <p>SELECT * FROM products
+        WHERE id=1
+    </p>
+
+    <h1>How to update a specific record</h1>
+    <p>UPDATE products
+        SET price =  0.80
+        WHERE id=2
+    </p>
+
+    <h1>Add a new column to the table</h1>
+    <p>ALTER TABLE products
+        ADD stock INT
+    </p>
+
+    <h1>How to delete a record</h1>
+    <p>DELETE FROM products
+        WHERE id = 2
+    </p>
+
+    <h1>How to create a table that has a foreign key</h1>
+    <p>CREATE TABLE orders (
+        id INT NOT NULL,
+        order_number INT,
+        product_id INT,
+        PRIMARY KEY (id),
+        FOREIGN KEY (product_id) REFERENCES products(id)
+    )
+    </p>
+
+    <!-- creates a new table which the columns that I want by combinging two tables together -->
+    <h1>Inner Join TABLE</h1>
+    <p>SELECT orders.order_number, products.name, products.price
+        FROM orders
+        INNER JOIN products ON orders.product_id = products.id
+    </p>
+    
+</body>
+</html>

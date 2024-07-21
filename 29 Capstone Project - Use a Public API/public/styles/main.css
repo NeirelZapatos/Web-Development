@@ -8,7 +8,8 @@
 
 #title {
     color: rgb(34, 40, 49);
-    font-size: 5rem;
+    font-size: 9vw;
+    white-space: nowrap;
 }
 
 .btn {
