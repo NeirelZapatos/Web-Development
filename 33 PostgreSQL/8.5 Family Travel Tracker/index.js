@@ -9,13 +9,20 @@ const db = new pg.Client({
   user: "postgres",
   host: "localhost",
   database: "world",
-  password: "9kxtEC%M5%^2N92B",
+  password: "123456",
   port: 5432,
 });
 db.connect();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
+
+let currentUserId = 1;
+
+let users = [
+  { id: 1, name: "Angela", color: "teal" },
+  { id: 2, name: "Jack", color: "powderblue" },
+];
 
 async function checkVisisted() {
   const result = await db.query("SELECT country_code FROM visited_countries");
@@ -25,13 +32,15 @@ async function checkVisisted() {
   });
   return countries;
 }
-// GET home page
 app.get("/", async (req, res) => {
   const countries = await checkVisisted();
-  res.render("index.ejs", { countries: countries, total: countries.length });
+  res.render("index.ejs", {
+    countries: countries,
+    total: countries.length,
+    users: users,
+    color: "teal",
+  });
 });
-
-//INSERT new country
 app.post("/add", async (req, res) => {
   const input = req.body["country"];
 
@@ -51,22 +60,16 @@ app.post("/add", async (req, res) => {
       res.redirect("/");
     } catch (err) {
       console.log(err);
-      const countries = await checkVisisted();
-      res.render("index.ejs", {
-        countries: countries,
-        total: countries.length,
-        error: "Country has already been added, try again.",
-      });
     }
   } catch (err) {
     console.log(err);
-    const countries = await checkVisisted();
-    res.render("index.ejs", {
-      countries: countries,
-      total: countries.length,
-      error: "Country name does not exist, try again.",
-    });
   }
+});
+app.post("/user", async (req, res) => {});
+
+app.post("/new", async (req, res) => {
+  //Hint: The RETURNING keyword can return the data that was inserted.
+  //https://www.postgresql.org/docs/current/dml-returning.html
 });
 
 app.listen(port, () => {

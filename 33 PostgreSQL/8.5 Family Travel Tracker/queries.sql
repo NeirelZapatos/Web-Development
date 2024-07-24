@@ -1,22 +1,15 @@
-CREATE TABLE friends (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(50) UNIQUE,
-    age INT NOT NULL,
-    is_cool BOOLEAN
-)
+CREATE TABLE student (
+  id SERIAL PRIMARY KEY,
+  first_name TEXT,
+  last_name TEXT
+);
 
--- One to One relationship
-CREATE TABLE student {
-    id SERIAL PRIMARY KEY,
-    first_name TEXT,
-    last_name TEXT,
-};
-
-CREATE TABLE contact_detail {
-    id INT REFERENCES student(id) UNIQUE,
-    tel TEXT,
-    address TEXT,
-}
+-- One to One --
+CREATE TABLE contact_detail (
+  id INTEGER REFERENCES student(id) UNIQUE,
+  tel TEXT,
+  address TEXT
+);
 
 -- Data --
 INSERT INTO student (first_name, last_name)
