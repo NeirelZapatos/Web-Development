@@ -6,6 +6,29 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <p>SELECT * FROM (TABLE);</p>
+    <p>SELECT (COLUMN) FROM (TABLE);</p>
+    <P>SELECT (COLUMN), (COLUMN)
+        FROM (TABLE);
+    </P>
+    <p>SELECT (COLUMN)
+        FROM (TABLE)
+        WHERE (CONDITION)
+    </p>
+    <p>Ex: SELECT rice
+        FROM world_food
+        WHERE country = 'United States';</p> 
+
+    <p>SELECT (COLUMN)
+        FROM (TABLE)
+        WHERE (COLUMN) LIKE (PATTERN)
+    </p>
+    <p>Ex: SELECT country
+        FROM world_food
+        WHERE country LIKE 'U' || '%';</p>
+    <p>This shows all the counties that start with the letter U</p>
+    <p>Ex 2: SELECT country
+        FROM world_food
+        WHERE country LIKE '%' || 'a';</p>
 </body>
 </html>
