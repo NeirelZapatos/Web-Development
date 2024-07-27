@@ -125,3 +125,49 @@ SELECT *
 FROM visited_countries
 JOIN users
 ON users.id = user_id;
+
+-- ALTER TALER
+  ALTER TABLE (TABLE TO ALTER)
+    (DO SOMTHING)
+
+  ALTER TABLE student
+    RENAME TO user;
+
+  ALTER TABLE user
+    ALTER COLUMN first_name TYPE VARCHAR(20);
+
+  ALTER TABLE contact_detail
+    ADD email TEXT
+  
+  -- twp elements have to be unqiue together
+  CREATE TABLE example (
+    a INT,
+    b INT,
+    c INT,
+    UNIQUE (a, b)
+  );
+
+  -- DROP TABLE
+
+DROP TABLE (NAME OF TABLE);
+
+DROP TABLE IF EXISTS visited_countries, users;
+
+-- update table
+UPDATE (TABLE)
+SET (COLUMN) = VALUE, ...
+WHERE (SOME CONDITION);
+
+-- Order by
+SELECT *
+FROM (TABLE)
+ORDER BY (SOME CONDITION);
+
+SELECT *
+FROM users
+ORDER BY ID ASC; 
+-- MEANS LOWER NUMBER COMES FIRST
+
+-- DELETE DATA
+DELETE FROM (TABLE)
+WHERE (CONDITION)

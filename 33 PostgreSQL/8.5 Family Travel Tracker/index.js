@@ -78,6 +78,7 @@ app.get("/", async (req, res) => {
     color: user.color,
   });
 });
+
 app.post("/add", async (req, res) => {
   const input = req.body["country"];  
 
