@@ -13,12 +13,12 @@
         </form>
 
         <p id="title<%=item.id%>">
-          <%= item.title %>
+          <%= item.name %>
         </p>
 
         <form class="edit" action="/edit" method="post">
           <input type="hidden" name="updatedItemId" value="<%= item.id %>">
-          <input id="input<%=item.id%>" type="text" name="updatedItemTitle" value="<%= item.title %>" autocomplete="off"
+          <input id="input<%=item.id%>" type="text" name="updatedItemTitle" value="<%= item.name %>" autocomplete="off"
             autofocus="true" hidden="true" />
           <button id="done<%=item.id%>" class="edit" type="submit" hidden><img class="icon"
               src="/assets/icons/check-solid.svg" alt="tick image"></button>
