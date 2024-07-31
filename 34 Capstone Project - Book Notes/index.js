@@ -58,21 +58,21 @@ async function getBooks() {
 async function getOneBook(id) {
     const result = await db.query("SELECT * FROM books");
     const books = result.rows;
-    if (books.length === 0) {
-        console.log("No books found");
-    } else {
-        for (let i = 0; i < books.length; i++) {
-            if (books[i].id == id) {
-                return books[i];
-            }
+
+    for (let i = 0; i < books.length; i++) {
+        if (books[i].id == id) {
+            return books[i];
         }
     }
+
+    console.log("No books found")
     return null;
 }
 
 app.get("/", async (req, res) => {
     try {
         const bookInfo = await getBooks();
+
         if(bookInfo.length === 0) {
             res.send("No books found");
         } else {
@@ -89,6 +89,7 @@ app.get("/notes/:id", async (req, res) => {
     try {
         console.log(req.params.id);
         const bookInfo = await getOneBook(req.params.id);
+
         if (bookInfo === null) {
             res.send("Book of id was not found");
         } else {
