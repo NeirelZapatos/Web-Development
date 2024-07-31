@@ -14,12 +14,41 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 const port = 3000;
+env.config();
+
+const db = new pg.Client({
+    user: process.env.DB_USERNAME,
+    host: process.env.DB_HOST,
+    database: process.env.DATABASE,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT
+});
+db.connect();
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
-    res.render(__dirname + "/views/index.ejs");
+async function getBooks() {
+    const result = await db.query("SELECT * FROM books");
+    const books = result.rows;
+    return books;
+}
+
+app.get("/", async (req, res) => {
+    try {
+        const bookInfo = await getBooks();
+        console.log(bookInfo)
+        if(bookInfo.length === 0) {
+            res.send("No books found");
+        } else {
+            res.render(__dirname + "/views/index.ejs", {
+                books: bookInfo,
+            }); 
+        }
+    } catch (err) {
+        console.log(err);
+    }
+    
 });
 
 app.listen(port, () => {

@@ -6,6 +6,13 @@
     <title>Document</title>
 </head>
 <body>
-    <p>Hello World</p>
+    <% for (let i = 0; i < books.length; i++) { %>
+        <p><%= books[i].title %></p>
+        <p><%= books[i].author %></p>
+        <p><%= books[i].summary %></p>
+        <p><%= books[i].notes %></p>
+        <p><%= books[i].rating %></p>
+        <img src="https://covers.openlibrary.org/b/isbn/<%= books[i].isbn %>-M.jpg" alt="<%= books[i].title %> cover"/>
+    <% } %>
 </body>
 </html>
