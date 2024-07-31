@@ -82,6 +82,7 @@ app.get("/", async (req, res) => {
         }
     } catch (err) {
         console.log(err);
+        res.redirect("/");
     }
 });
 
@@ -99,6 +100,7 @@ app.get("/notes/:id", async (req, res) => {
         }
     } catch (err) {
         console.log(err);
+        res.redirect("/");
     }   
 });
 
