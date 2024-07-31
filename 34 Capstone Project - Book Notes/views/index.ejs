@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Book Notes</title>
 </head>
 <body>
     <% for (let i = 0; i < books.length; i++) { %>
@@ -13,6 +13,10 @@
         <p><%= books[i].notes %></p>
         <p><%= books[i].rating %></p>
         <img src="https://covers.openlibrary.org/b/isbn/<%= books[i].isbn %>-L.jpg" alt="<%= books[i].title %> cover"/>
+        <% for (let j = 0; j < books[i].comments.length; j++) { %>
+            <p>By <%= books[i].comments[j].username %></p>
+            <p><%= books[i].comments[j].comment %></p>
+        <% } %>
     <% } %>
 </body>
 </html>

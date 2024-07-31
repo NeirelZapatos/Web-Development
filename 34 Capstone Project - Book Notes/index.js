@@ -29,9 +29,31 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 async function getBooks() {
-    const result = await db.query("SELECT * FROM books");
-    const books = result.rows;
-    return books;
+    // Query to get books and their comments
+    const result = await db.query(`
+        SELECT books.*, comments.comment, users.username
+        FROM books
+        LEFT JOIN comments ON books.id = comments.book_id
+        LEFT JOIN users ON comments.user_id = users.id
+    `);
+    console.log(result.rows);
+    
+    // Process the result to group comments by book
+    const books = {};
+    result.rows.forEach(row => {
+        const { id, title, author, summary, notes, rating, isbn, comment, username } = row;
+        if (!books[id]) {
+            books[id] = {
+                title, author, summary, notes, rating, isbn,
+                comments: []
+            };
+        }
+        if (comment) {
+            books[id].comments.push({comment, username});
+        }
+    });
+
+    return Object.values(books);
 }
 
 app.get("/", async (req, res) => {
