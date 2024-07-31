@@ -56,16 +56,16 @@ async function getBooks() {
 }
 
 async function getOneBook(id) {
-    const result = await db.query("SELECT * FROM books");
-    const books = result.rows;
+    const result = await db.query("SELECT * FROM books WHERE id = $1;",
+        [id]
+    );
+    const book = result.rows;
 
-    for (let i = 0; i < books.length; i++) {
-        if (books[i].id == id) {
-            return books[i];
-        }
+    if(book.length !== 0) {
+        return book[0];
     }
 
-    console.log("No books found")
+    console.log("No book found");
     return null;
 }
 
