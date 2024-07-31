@@ -36,7 +36,6 @@ async function getBooks() {
         LEFT JOIN comments ON books.id = comments.book_id
         LEFT JOIN users ON comments.user_id = users.id
     `);
-    console.log(result.rows);
     
     // Process the result to group comments by book
     const books = {};
@@ -44,7 +43,7 @@ async function getBooks() {
         const { id, title, author, summary, notes, rating, isbn, comment, username } = row;
         if (!books[id]) {
             books[id] = {
-                title, author, summary, notes, rating, isbn,
+                id, title, author, summary, notes, rating, isbn,
                 comments: []
             };
         }
@@ -56,10 +55,24 @@ async function getBooks() {
     return Object.values(books);
 }
 
+async function getOneBook(id) {
+    const result = await db.query("SELECT * FROM books");
+    const books = result.rows;
+    if (books.length === 0) {
+        console.log("No books found");
+    } else {
+        for (let i = 0; i < books.length; i++) {
+            if (books[i].id == id) {
+                return books[i];
+            }
+        }
+    }
+    return null;
+}
+
 app.get("/", async (req, res) => {
     try {
         const bookInfo = await getBooks();
-        console.log(bookInfo)
         if(bookInfo.length === 0) {
             res.send("No books found");
         } else {
@@ -70,7 +83,22 @@ app.get("/", async (req, res) => {
     } catch (err) {
         console.log(err);
     }
-    
+});
+
+app.get("/notes/:id", async (req, res) => {
+    try {
+        console.log(req.params.id);
+        const bookInfo = await getOneBook(req.params.id);
+        if (bookInfo === null) {
+            res.send("Book of id was not found");
+        } else {
+            res.render(__dirname + "/views/notes.ejs", {
+                book: bookInfo
+            });
+        }
+    } catch (err) {
+        console.log(err);
+    }   
 });
 
 app.listen(port, () => {

@@ -7,7 +7,9 @@
 </head>
 <body>
     <% for (let i = 0; i < books.length; i++) { %>
-        <p><%= books[i].title %></p>
+        <a href="/notes/<%= books[i].id %>">
+            <p><%= books[i].title %></p>
+        </a>
         <p><%= books[i].author %></p>
         <p><%= books[i].summary %></p>
         <p><%= books[i].notes %></p>
