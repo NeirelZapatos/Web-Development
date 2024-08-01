@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Notes</title>
-</head>
-<body>
+<%- include("partials/header.ejs") %>
+
     <% for (let i = 0; i < books.length; i++) { %>
         <a href="/notes/<%= books[i].id %>">
             <p><%= books[i].title %></p>
@@ -19,5 +13,6 @@
             <p><%= books[i].comments[j].comment %></p>
         <% } %>
     <% } %>
-</body>
-</html>
+
+<%- include("partials/footer.ejs") %>
+
