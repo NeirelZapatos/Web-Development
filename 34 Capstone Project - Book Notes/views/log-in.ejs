@@ -1,5 +1,10 @@
 <%- include("partials/header.ejs") %>
 
-
+    <form  action="/log-in" method="POST">
+        <input type="text" name="username" placeholder="username">
+        <input type="text" name="password" placeholder="password">
+        <button type="submit" >Post</button>
+    </form>
+    <a href="/auth/google" role="button">google log in</a>
 
 <%- include("partials/footer.ejs") %>

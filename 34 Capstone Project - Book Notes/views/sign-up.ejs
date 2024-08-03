@@ -1,5 +1,9 @@
 <%- include("partials/header.ejs") %>
 
-
+    <form  action="/register" method="POST">
+        <input type="text" name="username" placeholder="username">
+        <input type="text" name="password" placeholder="password">
+        <button type="submit" >Post</button>
+    </form>
 
 <%- include("partials/footer.ejs") %>
