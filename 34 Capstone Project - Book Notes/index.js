@@ -28,6 +28,13 @@ app.use(
     })
 );
 
+app.use(express.static("public"));
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 const db = new pg.Client({
     user: process.env.DB_USERNAME,
     host: process.env.DB_HOST,
@@ -36,12 +43,6 @@ const db = new pg.Client({
     port: process.env.DB_PORT
 });
 db.connect();
-
-app.use(express.static("public"));
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 async function getBooks() {
     // Query to get books and their comments
@@ -85,6 +86,7 @@ async function getOneBook(id) {
 }
 
 app.get("/", async (req, res) => {
+    console.log(req.user);
     try {
         const bookInfo = await getBooks();
 
@@ -131,15 +133,14 @@ app.get("/log-out", (req, res) => {
         if (err) {
             return next(err);
         }
-        console.log("log out successful");
-        console.log(req.user);
         res.redirect("/");
     });
 });
 
 app.get("/auth/google",
     passport.authenticate("google", {
-        scope: ["profile", "email"]
+        scope: ["profile", "email"],
+        prompt: "select_account"
     })
 );
 
@@ -232,13 +233,13 @@ passport.use("google",
         },
         async (accessToken, refreshToken, profile, cb) => {
             try {
-                console.log(profile);
+                // console.log(profile);
                 const result = await db.query("SELECT * FROM users WHERE email = $1",
                     [profile.email]
                 );
 
                 if (result.rows.length === 0) {
-                    const newUser = await db.query("INSERT INTO users (email, password) VALUES ($1, $2)",
+                    const newUser = await db.query("INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *",
                         [profile.email, "google"]
                     );
                     return cb(null, newUser.rows[0]);
