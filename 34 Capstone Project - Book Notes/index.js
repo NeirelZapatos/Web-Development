@@ -67,7 +67,6 @@ async function getBooks() {
             books[id].comments.push({comment, username});
         }
     });
-
     return Object.values(books);
 }
 
@@ -80,7 +79,6 @@ async function getOneBook(id) {
     if(book.length !== 0) {
         return book[0];
     }
-
     console.log("No book found");
     return null;
 }
@@ -89,7 +87,6 @@ app.get("/", async (req, res) => {
     console.log(req.user);
     try {
         const bookInfo = await getBooks();
-
         if(bookInfo.length === 0) {
             res.send("No books found");
         } else {
@@ -106,7 +103,6 @@ app.get("/", async (req, res) => {
 app.get("/notes/:id", async (req, res) => {
     try {
         const bookInfo = await getOneBook(req.params.id);
-
         if (bookInfo === null) {
             res.send("Book of id was not found");
         } else {
@@ -151,6 +147,24 @@ app.get("/auth/google/success",
     })
 );
 
+app.post("/add-comment/:id", async (req, res) => {
+    if (req.isAuthenticated()) {
+        const userComment = req.body.comment;
+        const bookID = req.params.id;
+        const userID = req.user.id;
+        try {
+            await db.query("INSERT INTO comments (user_id, comment, book_id) VALUES ($1, $2, $3);",
+                [userID, userComment, bookID]
+            );
+            res.redirect("/");
+        } catch (err) {
+            console.log(err);
+        } 
+    } else {
+        res.redirect("/log-in");
+    }
+});
+
 app.post("/log-in",
     passport.authenticate("local", {
         successRedirect: "/",
@@ -161,12 +175,10 @@ app.post("/log-in",
 app.post("/register", async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-
     try {
         const checkResult = await db.query("SELECT * FROM users WHERE username = $1",
             [username]
         );
-    
         if (checkResult.rows.length > 0) {
             res.send("Username unavaible");
         } else {
@@ -197,7 +209,6 @@ passport.use("local",
             const result = await db.query("SELECT * FROM users WHERE username = $1",
                 [username]
             );
-
             if (result.rows.length > 0) {
                 const user = result.rows[0];
                 const storedHashedPassword = user.password;
