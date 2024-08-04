@@ -234,13 +234,14 @@ passport.use("google",
         async (accessToken, refreshToken, profile, cb) => {
             try {
                 // console.log(profile);
+                // console.log(profile.given_name);
                 const result = await db.query("SELECT * FROM users WHERE email = $1",
                     [profile.email]
                 );
 
                 if (result.rows.length === 0) {
-                    const newUser = await db.query("INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *",
-                        [profile.email, "google"]
+                    const newUser = await db.query("INSERT INTO users (email, username, password) VALUES ($1, $2, $3) RETURNING *",
+                        [profile.email, profile.given_name, "google"]
                     );
                     return cb(null, newUser.rows[0]);
                 } else {
