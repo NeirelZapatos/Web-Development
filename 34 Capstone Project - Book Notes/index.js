@@ -1,6 +1,5 @@
 import express from "express";
 import bodyParser from "body-parser";
-import axios from "axios";
 import pg from "pg";
 import bcrypt from "bcrypt";
 import passport from "passport";
@@ -33,7 +32,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 const db = new pg.Client({
     user: process.env.DB_USERNAME,
@@ -75,7 +73,6 @@ async function getOneBook(id) {
         [id]
     );
     const book = result.rows;
-
     if(book.length !== 0) {
         return book[0];
     }
@@ -180,7 +177,7 @@ app.post("/register", async (req, res) => {
             [username]
         );
         if (checkResult.rows.length > 0) {
-            res.send("Username unavaible");
+            res.send("Username unavailable");
         } else {
             bcrypt.hash(password, saltRounds, async (err, hash) => {
                 if (err) {
@@ -249,7 +246,6 @@ passport.use("google",
                 const result = await db.query("SELECT * FROM users WHERE email = $1",
                     [profile.email]
                 );
-
                 if (result.rows.length === 0) {
                     const newUser = await db.query("INSERT INTO users (email, username, password) VALUES ($1, $2, $3) RETURNING *",
                         [profile.email, profile.given_name, "google"]

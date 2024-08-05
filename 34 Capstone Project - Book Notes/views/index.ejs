@@ -1,24 +1,27 @@
 <%- include("partials/header.ejs") %>
 
-    <% for (let i = 0; i < books.length; i++) { %>
-        <a href="/notes/<%= books[i].id %>">
-            <p><%= books[i].title %></p>
-        </a>
-        <p><%= books[i].author %></p>
-        <p><%= books[i].summary %></p>
-        <p><%= books[i].rating %></p>
-        <img src="https://covers.openlibrary.org/b/isbn/<%= books[i].isbn %>-L.jpg" alt="<%= books[i].title %> cover"/>
-        <form  action="/add-comment/<%= books[i].id %>" method="POST">
-            <input type="text" name="comment" placeholder="comment">
-            <button type="submit" >Post Comment</button>
-        </form>
-        <% for (let j = 0; j < books[i].comments.length; j++) { %>
-            <p>By <%= books[i].comments[j].username %></p>
-            <p><%= books[i].comments[j].comment %></p>
+<div class="container">
+    <div class="row col-lg-8">
+        <% for (let i = 0; i < books.length; i++) { %>
+            <a href="/notes/<%= books[i].id %>">
+                <p><%= books[i].title %></p>
+            </a>
+            <p><%= books[i].author %></p>
+            <p><%= books[i].summary %></p>
+            <p><%= books[i].rating %></p>
+            <img src="https://covers.openlibrary.org/b/isbn/<%= books[i].isbn %>-L.jpg" alt="<%= books[i].title %> cover"/>
+            <form  action="/add-comment/<%= books[i].id %>" method="POST">
+                <input type="text" name="comment" placeholder="comment">
+                <button type="submit" >Post Comment</button>
+            </form>
+            <% for (let j = 0; j < books[i].comments.length; j++) { %>
+                <p>By <%= books[i].comments[j].username %></p>
+                <p><%= books[i].comments[j].comment %></p>
+            <% } %>
         <% } %>
-    <% } %>
-    <a href="/log-out" role="button">Log out</a>
-    <a href="/log-in" role="button">Log in</a>
+        <a href="/log-out" role="button">Log out</a>
+        <a href="/log-in" role="button">Log in</a>
+    </div>
+</div>
     
-
 <%- include("partials/footer.ejs") %>
