@@ -1,7 +1,10 @@
 <%- include("partials/header.ejs") %>
 
-<div class="container">
-    <div class="row col-lg-8">
+    <div class="container">
+        <div class="row">
+
+        </div>
+    </div>
         <% for (let i = 0; i < books.length; i++) { %>
             <a href="/notes/<%= books[i].id %>">
                 <p><%= books[i].title %></p>
@@ -9,6 +12,7 @@
             <p><%= books[i].author %></p>
             <p><%= books[i].summary %></p>
             <p><%= books[i].rating %></p>
+            <p><%= books[i].isbn %></p>
             <img src="https://covers.openlibrary.org/b/isbn/<%= books[i].isbn %>-L.jpg" alt="<%= books[i].title %> cover"/>
             <form  action="/add-comment/<%= books[i].id %>" method="POST">
                 <input type="text" name="comment" placeholder="comment">
@@ -21,7 +25,6 @@
         <% } %>
         <a href="/log-out" role="button">Log out</a>
         <a href="/log-in" role="button">Log in</a>
-    </div>
-</div>
+        <a href="/add-book" role="button">add book</a>
     
 <%- include("partials/footer.ejs") %>

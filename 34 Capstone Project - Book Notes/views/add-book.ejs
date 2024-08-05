@@ -1,0 +1,13 @@
+<%- include("partials/header.ejs") %>
+
+    <form  action="/add-book" method="POST">
+        <input type="text" name="title" placeholder="title">
+        <input type="text" name="author" placeholder="author">
+        <input type="text" name="summary" placeholder="summary">
+        <input type="text" name="notes" placeholder="notes">
+        <input type="text" name="rating" placeholder="rating">
+        <input type="text" name="isbn" placeholder="isbn">
+        <button type="submit" >Post</button>
+    </form>
+
+<%- include("partials/footer.ejs") %>

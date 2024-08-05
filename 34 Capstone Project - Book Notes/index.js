@@ -121,6 +121,10 @@ app.get("/sign-up", (req, res) => {
     res.render(__dirname + "/views/sign-up.ejs");
 });
 
+app.get("/add-book", (req, res) => {
+    res.render(__dirname + "/views/add-book.ejs");
+});
+
 app.get("/log-out", (req, res) => {
     req.logout((err) => {
         if (err) {
@@ -143,6 +147,31 @@ app.get("/auth/google/success",
         failureRedirect: "/log-in"
     })
 );
+ 
+app.post("/add-book", async (req, res) => {
+    const title = req.body.title;
+    const author = req.body.author;
+    const summary = req.body.summary;
+    const notes = req.body.notes;
+    const rating = req.body.rating;
+    const isbn = req.body.isbn;
+
+    try {
+        const result = await db.query(`SELECT * FROM books WHERE isbn = $1;`,
+            [isbn]
+        );
+        if (result.rows != 0) {
+            res.send("That book is already added");
+        } else {
+            await db.query(`INSERT INTO books (title, author, summary, notes, rating, isbn) VALUES ($1, $2, $3, $4, $5, $6);`,
+                [title, author, summary, notes, rating, isbn]
+            );
+            res.redirect("/");
+        }
+    } catch (err) {
+        console.log(err);
+    }
+});
 
 app.post("/add-comment/:id", async (req, res) => {
     if (req.isAuthenticated()) {
