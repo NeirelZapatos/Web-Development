@@ -1,10 +1,20 @@
 <%- include("partials/header.ejs") %>
 
-    <div class="container">
-        <div class="row">
-
+<% for (let i = 0; i < books.length; i++) { %>
+    <div class="container col-xxl-8 px-4 py-5">
+        <div class="row flex-lg-row align-items-center g-5 py-5">
+            <div class="col-10 col-sm-8 col-lg-6">
+                <img src="https://covers.openlibrary.org/b/isbn/<%= books[i].isbn %>-L.jpg" class="d-block mx-lg-auto img-fluid" alt="<%= books[i].title %> cover" height="500" loading="lazy">
+            </div>
+            <div class="col-lg-6">
+                <a href="/notes/<%= books[i].id %>">
+                    <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3"><%= books[i].title %></h1>
+                </a>
+                <p class="lead"><%= books[i].title %></p>
+            </div>
         </div>
     </div>
+<% } %>
         <% for (let i = 0; i < books.length; i++) { %>
             <a href="/notes/<%= books[i].id %>">
                 <p><%= books[i].title %></p>
