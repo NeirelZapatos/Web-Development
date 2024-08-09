@@ -29,3 +29,17 @@
     border-width: 2px !important;
     color: rgb(245, 237, 237) !important;
 }
+
+.title {
+    font-family: 'Roboto', sans-serif;
+}
+
+.author-text {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5rem;
+}
+
+.summary-text {
+    font-family: 'Roboto Slab', sans-serif;
+    font-size: 1.2rem;
+}

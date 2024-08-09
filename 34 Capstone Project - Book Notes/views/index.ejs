@@ -1,6 +1,6 @@
 <%- include("partials/header.ejs") %>
 
-<% for (let i = 0; i < books.length; i++) { %>
+<!-- <% for (let i = 0; i < books.length; i++) { %>
     <div class="container col-xxl-8 px-4 py-5">
         <div class="row flex-lg-row align-items-center g-5 py-5">
             <div class="col-10 col-sm-8 col-lg-6">
@@ -14,7 +14,33 @@
             </div>
         </div>
     </div>
+<% } %> -->
+
+<% for (let i = 0; i < books.length; i++) { %>
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <img src="https://covers.openlibrary.org/b/isbn/<%= books[i].isbn %>-L.jpg" alt="<%= books[i].title %> cover"/>
+            </div>
+            <div class="col-8">
+                <div class="mb-3">
+                    <h1 class="title"><%= books[i].title %></h1>
+                    <i class="author-text">By <%= books[i].author %></i>
+                </div> 
+                <p class="summary-text"><%= books[i].summary %></p>
+            </div>
+        </div>
+        <div class="row d-flex">
+            <div class="col-10 mx-auto">
+                <% for (let j = 0; j < books[i].comments.length; j++) { %>
+                    <p>By <%= books[i].comments[j].username %></p>
+                    <p><%= books[i].comments[j].comment %></p>
+                <% } %>
+            </div> 
+        </div>
+    </div>
 <% } %>
+
         <% for (let i = 0; i < books.length; i++) { %>
             <a href="/notes/<%= books[i].id %>">
                 <p><%= books[i].title %></p>
