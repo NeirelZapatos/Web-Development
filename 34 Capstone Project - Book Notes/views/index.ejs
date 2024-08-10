@@ -1,28 +1,12 @@
 <%- include("partials/header.ejs") %>
 
-<!-- <% for (let i = 0; i < books.length; i++) { %>
-    <div class="container col-xxl-8 px-4 py-5">
-        <div class="row flex-lg-row align-items-center g-5 py-5">
-            <div class="col-10 col-sm-8 col-lg-6">
-                <img src="https://covers.openlibrary.org/b/isbn/<%= books[i].isbn %>-L.jpg" class="d-block mx-lg-auto img-fluid" alt="<%= books[i].title %> cover" height="500" loading="lazy">
-            </div>
-            <div class="col-lg-6">
-                <a href="/notes/<%= books[i].id %>">
-                    <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3"><%= books[i].title %></h1>
-                </a>
-                <p class="lead"><%= books[i].title %></p>
-            </div>
-        </div>
-    </div>
-<% } %> -->
-
 <% for (let i = 0; i < books.length; i++) { %>
     <div class="container">
-        <div class="row">
-            <div class="col-4">
-                <img src="https://covers.openlibrary.org/b/isbn/<%= books[i].isbn %>-L.jpg" alt="<%= books[i].title %> cover"/>
+        <div class="row flex-lg-row flex-column">
+            <div class="col-lg-4 col-sm-12">
+                <img src="https://covers.openlibrary.org/b/isbn/<%= books[i].isbn %>-L.jpg" alt="<%= books[i].title %> cover" class="img-fluid"/>
             </div>
-            <div class="col-8">
+            <div class="col-lg-8 col-sm-12">
                 <div class="mb-3">
                     <h1 class="title"><%= books[i].title %></h1>
                     <i class="author-text">By <%= books[i].author %></i>
@@ -30,37 +14,37 @@
                 <p class="summary-text"><%= books[i].summary %></p>
             </div>
         </div>
+        <div class="row">
+            <div class="col-12 my-3">
+                <h2 id="review-title">Review</h2>
+            </div>
+            <p id="review-text"><%= books[i].notes %></p>
+        </div>
         <div class="row d-flex">
-            <div class="col-10 mx-auto">
-                <% for (let j = 0; j < books[i].comments.length; j++) { %>
-                    <p>By <%= books[i].comments[j].username %></p>
-                    <p><%= books[i].comments[j].comment %></p>
+            <div class="col-12 mx-auto mb-4 mt-2">
+                <div class="my-3">
+                    <form action="/add-comment/<%= books[i].id %>" method="POST">
+                        <input type="text" name="comment" placeholder="Add a Comment" class="form-control mb-2" required>
+                        <button type="submit" class="btn custom-btn">Post Comment</button>
+                    </form>
+                </div>
+                <% if (books[i].comments.length > 0) { %>
+                    <div class="my-4">
+                        <h3 id="comment">Comments</h6>
+                    </div>
+
+                    <% for (let j = 0; j < books[i].comments.length; j++) { %>
+                        <p class="comment-author"><%= books[i].comments[j].username %></p>
+                        <p class="comment-text"><%= books[i].comments[j].comment %></p>
+                    <% } %>
                 <% } %>
             </div> 
         </div>
     </div>
 <% } %>
 
-        <% for (let i = 0; i < books.length; i++) { %>
-            <a href="/notes/<%= books[i].id %>">
-                <p><%= books[i].title %></p>
-            </a>
-            <p><%= books[i].author %></p>
-            <p><%= books[i].summary %></p>
-            <p><%= books[i].rating %></p>
-            <p><%= books[i].isbn %></p>
-            <img src="https://covers.openlibrary.org/b/isbn/<%= books[i].isbn %>-L.jpg" alt="<%= books[i].title %> cover"/>
-            <form  action="/add-comment/<%= books[i].id %>" method="POST">
-                <input type="text" name="comment" placeholder="comment">
-                <button type="submit" >Post Comment</button>
-            </form>
-            <% for (let j = 0; j < books[i].comments.length; j++) { %>
-                <p>By <%= books[i].comments[j].username %></p>
-                <p><%= books[i].comments[j].comment %></p>
-            <% } %>
-        <% } %>
-        <a href="/log-out" role="button">Log out</a>
-        <a href="/log-in" role="button">Log in</a>
-        <a href="/add-book" role="button">add book</a>
+<a href="/log-out" role="button">Log out</a>
+<a href="/log-in" role="button">Log in</a>
+<a href="/add-book" role="button">add book</a>
     
 <%- include("partials/footer.ejs") %>

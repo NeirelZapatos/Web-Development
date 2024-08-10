@@ -12,6 +12,9 @@
 
 #footer {
     background-color: rgb(100, 130, 173);
+    position: absolute;
+    bottom: 0;
+    width: 100%; 
 }
 
 .footer-text {
@@ -21,9 +24,16 @@
 .header-text {
     color: rgb(245, 237, 237);
     font-size: 2rem;
+    font-family: 'Roboto', sans-serif;
 }
 
-.btn {
+.username-text {
+    color: rgb(245, 237, 237);
+    font-size: 1.2rem;
+    font-family: 'Roboto', sans-serif;
+}
+
+.custom-btn {
     background-color: rgb(127, 161, 195) !important;
     border-color: rgb(226, 218, 214) !important;
     border-width: 2px !important;
@@ -32,6 +42,7 @@
 
 .title {
     font-family: 'Roboto', sans-serif;
+    font-weight: bold;
 }
 
 .author-text {
@@ -43,3 +54,39 @@
     font-family: 'Roboto Slab', sans-serif;
     font-size: 1.2rem;
 }
+
+.comment-author {
+    font-family: 'Roboto Slab', sans-serif;
+    font-weight: bold;
+}
+
+#comment {
+    font-family: 'Roboto Slab', sans-serif;
+    font-weight: bold;
+}
+
+.comment-text {
+    font-family: 'Roboto', sans-serif;
+    font-size: .9rem;
+}
+
+#review-title {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;   
+    font-size: 2rem; 
+}
+
+#review-text {
+    font-family: 'Roboto Slab', sans-serif;
+    font-size: 1.1rem;
+}
+
+#page-container {
+    position: relative;
+    min-height: 100vh;
+}
+  
+#content-wrap {
+    padding-bottom: 2.5rem;    /* Footer height */
+}
+  

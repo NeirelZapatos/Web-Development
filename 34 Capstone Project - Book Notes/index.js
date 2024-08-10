@@ -86,9 +86,16 @@ app.get("/", async (req, res) => {
         const bookInfo = await getBooks();
         if(bookInfo.length === 0) {
             res.send("No books found");
+        } else if (req.isAuthenticated()){
+            res.render(__dirname + "/views/index.ejs", {
+                books: bookInfo,
+                loggedIn: true,
+                username: req.user.username
+            }); 
         } else {
             res.render(__dirname + "/views/index.ejs", {
                 books: bookInfo,
+                loggedIn: false
             }); 
         }
     } catch (err) {
@@ -104,7 +111,9 @@ app.get("/notes/:id", async (req, res) => {
             res.send("Book of id was not found");
         } else {
             res.render(__dirname + "/views/notes.ejs", {
-                book: bookInfo
+                book: bookInfo,
+                loggedIn: req.isAuthenticated(),
+                // username: req.user.username
             });
         }
     } catch (err) {
@@ -114,11 +123,15 @@ app.get("/notes/:id", async (req, res) => {
 });
 
 app.get("/log-in", (req, res) => {
-    res.render(__dirname + "/views/log-in.ejs"); 
+    res.render(__dirname + "/views/log-in.ejs", {
+        loggedIn: false
+    }); 
 });
 
 app.get("/sign-up", (req, res) => {
-    res.render(__dirname + "/views/sign-up.ejs");
+    res.render(__dirname + "/views/sign-up.ejs", {
+        loggedIn: false
+    });
 });
 
 app.get("/add-book", (req, res) => {
@@ -246,6 +259,7 @@ passport.use("local",
                         if (valid) {
                             console.log("Log in successful");
                             return cb(null, user);
+                            console.log(req.user.username);
                         } else {
                             return cb(null, false);
                         }

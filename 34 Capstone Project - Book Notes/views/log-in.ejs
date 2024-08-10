@@ -1,10 +1,38 @@
 <%- include("partials/header.ejs") %>
 
-<form  action="/log-in" method="POST">
-    <input type="text" name="username" placeholder="username">
-    <input type="text" name="password" placeholder="password">
-    <button type="submit" >Post</button>
-</form>
-<a href="/auth/google" role="button">google log in</a>
+<div class="container mt-5 ">
+    <h1>Login</h1>
+
+    <div class="row w-100">
+      <div class="col-sm-8">
+        <div class="card">
+          <div class="card-body">
+
+            <!-- Makes POST request to /login route -->
+            <form action="/log-in" method="POST">
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="username" class="form-control" name="username">
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control mb-2" name="password">
+              </div>
+              <button type="submit" class="btn custom-btn">Login</button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+            <a class="btn btn-block custom-btn" href="/auth/google" role="button">
+              <i class="fab fa-google"></i>
+              Log In with Google
+            </a>
+      </div>
+
+    </div>
+  </div>
 
 <%- include("partials/footer.ejs") %>
