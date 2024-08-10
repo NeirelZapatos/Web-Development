@@ -1,5 +1,16 @@
 <%- include("partials/header.ejs") %>
 
+<div class="container d-flex justify-content-center align-items-center mb-4">
+    <div class="col-8">
+        <form action="/add-book" method="POST">
+            <div class="input-group">
+                <input type="text" name="title" placeholder="Enter book name" class="form-control" required>
+                <button type="submit" class="btn custom-btn">Add Book</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <% for (let i = 0; i < books.length; i++) { %>
     <div class="container">
         <div class="row flex-lg-row flex-column">
@@ -42,9 +53,5 @@
         </div>
     </div>
 <% } %>
-
-<a href="/log-out" role="button">Log out</a>
-<a href="/log-in" role="button">Log in</a>
-<a href="/add-book" role="button">add book</a>
     
 <%- include("partials/footer.ejs") %>

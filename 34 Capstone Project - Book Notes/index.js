@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import pg from "pg";
+import axios from "axios";
 import bcrypt from "bcrypt";
 import passport from "passport";
 import { Strategy } from "passport-local";
@@ -81,7 +82,8 @@ async function getOneBook(id) {
 }
 
 app.get("/", async (req, res) => {
-    console.log("Current user: " + req.user);
+    console.log("Current User: ");
+    console.log(req.user);
     try {
         const bookInfo = await getBooks();
         if(bookInfo.length === 0) {
@@ -135,7 +137,13 @@ app.get("/sign-up", (req, res) => {
 });
 
 app.get("/add-book", (req, res) => {
-    res.render(__dirname + "/views/add-book.ejs");
+    if(req.isAuthenticated() && req.user.id === 1) {
+        res.render(__dirname + "/views/add-book.ejs", {
+            loggedIn: true
+        });
+    } else {
+        res.redirect("/");
+    }
 });
 
 app.get("/log-out", (req, res) => {
@@ -162,28 +170,74 @@ app.get("/auth/google/success",
 );
  
 app.post("/add-book", async (req, res) => {
-    const title = req.body.title;
-    const author = req.body.author;
-    const summary = req.body.summary;
-    const notes = req.body.notes;
-    const rating = req.body.rating;
-    const isbn = req.body.isbn;
+    const title = req.body.title
+    const apiTitle = title.replace(" ", "+");
 
     try {
-        const result = await db.query(`SELECT * FROM books WHERE isbn = $1;`,
-            [isbn]
-        );
-        if (result.rows != 0) {
-            res.send("That book is already added");
+        const response = await axios.get(`https://openlibrary.org/search.json?q=${apiTitle}&limit=1`);
+        const bookSearch = response.data;
+        const bookList = bookSearch.docs;
+        const book = bookList[0];
+        let validIsbn;
+
+        let foundCover = false;
+        let i = 0;
+        while (!foundCover) {
+            try {
+                const testing = await axios.get(`https://covers.openlibrary.org/b/isbn/${book.isbn[i]}-L.jpg?default=false`) 
+                validIsbn = book.isbn[i];
+                foundCover = true;
+            } catch (err) {
+                console.log(err.response.data);
+                i++;
+            }
+            if (i >= book.isbn.length) {
+                console.log("Cover not found")
+                continue
+            }
+        }
+        
+        if (bookList.length === 0) {
+            res.send("Make sure you entered the correct title");
+        } else if (req.isAuthenticated() && req.user.id === 1){
+            res.render(__dirname + "/views/add-book.ejs", {
+                loggedIn: true,
+                user: req.user,
+                book: book,
+                isbn: validIsbn
+            });
         } else {
-            await db.query(`INSERT INTO books (title, author, summary, notes, rating, isbn) VALUES ($1, $2, $3, $4, $5, $6);`,
-                [title, author, summary, notes, rating, isbn]
-            );
             res.redirect("/");
         }
     } catch (err) {
         console.log(err);
     }
+    
+    // const title = req.body.title;
+    // const apiTitle = title.replace(" ", "+");
+    // const author = req.body.author;
+    // const summary = req.body.summary;
+    // const notes = req.body.notes;
+    // const rating = req.body.rating;
+    // const isbn = req.body.isbn;
+
+
+
+    // try {
+    //     const result = await db.query(`SELECT * FROM books WHERE isbn = $1;`,
+    //         [isbn]
+    //     );
+    //     if (result.rows != 0) {
+    //         res.send("That book is already added");
+    //     } else {
+    //         await db.query(`INSERT INTO books (title, author, summary, notes, rating, isbn) VALUES ($1, $2, $3, $4, $5, $6);`,
+    //             [title, author, summary, notes, rating, isbn]
+    //         );
+    //         res.redirect("/");
+    //     }
+    // } catch (err) {
+    //     console.log(err);
+    // }
 });
 
 app.post("/add-comment/:id", async (req, res) => {
