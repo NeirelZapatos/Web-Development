@@ -81,7 +81,7 @@ async function getOneBook(id) {
 }
 
 app.get("/", async (req, res) => {
-    console.log(req.user);
+    console.log("Current user: " + req.user);
     try {
         const bookInfo = await getBooks();
         if(bookInfo.length === 0) {
@@ -90,7 +90,7 @@ app.get("/", async (req, res) => {
             res.render(__dirname + "/views/index.ejs", {
                 books: bookInfo,
                 loggedIn: true,
-                username: req.user.username
+                user: req.user
             }); 
         } else {
             res.render(__dirname + "/views/index.ejs", {

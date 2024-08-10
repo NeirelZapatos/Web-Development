@@ -18,20 +18,20 @@
   <div id="page-container">
     <div id="content-wrap">
       <div class="container-fluid" id="header">
-          <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-2 mb-4 px-4">
-            <div class="col-md-3 mb-2 mb-md-0 d-flex align-items-center">
+          <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-between py-2 mb-4 px-4">
+            <div class="col-md-6 mb-2 mb-md-0 d-flex align-items-center">
               <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
                 <img src="/images/book.svg" alt="book icon" id="book-icon"/>
                 <span class="header-text ms-2">Neirel's Book Notes</span>
               </a>
             </div>
-              <div class="col-md-3 text-end">
+              <div class="col-md-6 text-end">
                 <% if (!loggedIn) { %>
                   <a href="/log-in"><button type="button" class="btn me-2 custom-btn">Log in</button></a>
                   <a href="/sign-up"><button type="button" class="btn custom-btn">Sign up</button></a>
                 <% } else { %>
-                  <% if (locals.username) { %>
-                    <span class="username-text"><%= username %></span>
+                  <% if (locals.user) { %>
+                    <span class="username-text"><%= user.username %></span>
                   <% } %>
                   <a href="/log-out"><button type="button" class="btn custom-btn ms-2">Log out</button></a>
                 <% } %>
