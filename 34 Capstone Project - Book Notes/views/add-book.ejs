@@ -1,11 +1,11 @@
 <%- include("partials/header.ejs") %>
 
     <p><%= book.title %></p>
-    <p><%= book.author_name[0] %></p>
-    <p><%= isbn %></p>
-    <img src="https://covers.openlibrary.org/b/isbn/<%= isbn %>-L.jpg" alt="<%= book.title %> cover" class="img-fluid"/>
+    <p><%= book.authors[0].name %></p>
+    <p><%= book.identifiers.isbn_13 %></p>
+    <img src="https://covers.openlibrary.org/b/isbn/<%= book.identifiers.isbn_13 %>-L.jpg" alt="<%= book.title %> cover" class="img-fluid"/>
 
-    <form  action="/add-book" method="POST">
+    <form action="/confirm-book" method="POST">
         <input type="text" name="title" placeholder="title">
         <input type="text" name="author" placeholder="author">
         <input type="text" name="summary" placeholder="summary">

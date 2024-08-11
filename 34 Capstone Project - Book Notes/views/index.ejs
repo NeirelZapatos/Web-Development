@@ -1,15 +1,18 @@
 <%- include("partials/header.ejs") %>
 
-<div class="container d-flex justify-content-center align-items-center mb-4">
-    <div class="col-8">
-        <form action="/add-book" method="POST">
-            <div class="input-group">
-                <input type="text" name="title" placeholder="Enter book name" class="form-control" required>
-                <button type="submit" class="btn custom-btn">Add Book</button>
-            </div>
-        </form>
+<% if (locals.user && user.id === 1) { %>
+    <div class="container d-flex justify-content-center align-items-center mb-4">
+        <div class="col-8">
+            <form action="/add-book" method="POST">
+                <div class="input-group">
+                    <input type="text" name="isbn" placeholder="Enter isbn" class="form-control" required>
+                    <button type="submit" class="btn custom-btn">Add Book</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
+<% } %>
+
 
 <% for (let i = 0; i < books.length; i++) { %>
     <div class="container">
@@ -17,6 +20,7 @@
             <div class="col-lg-4 col-sm-12">
                 <img src="https://covers.openlibrary.org/b/isbn/<%= books[i].isbn %>-L.jpg" alt="<%= books[i].title %> cover" class="img-fluid"/>
             </div>
+
             <div class="col-lg-8 col-sm-12">
                 <div class="mb-3">
                     <h1 class="title"><%= books[i].title %></h1>
@@ -25,12 +29,27 @@
                 <p class="summary-text"><%= books[i].summary %></p>
             </div>
         </div>
+
         <div class="row">
             <div class="col-12 my-3">
                 <h2 id="review-title">Review</h2>
             </div>
             <p id="review-text"><%= books[i].notes %></p>
         </div>
+
+        <% if (locals.user && user.id === 1) { %>
+            <div class="row">
+                <div class="col-12 text-end">
+                    <a href="/update-book/<%= books[i].id %>" class="text-decoration-none">
+                        <img src="/images/pencil-square.svg" alt="edit button" class="me-1"/>
+                    </a>
+                    <a href="/delete-book/<%= books[i].id %>" class="text-decoration-none">
+                        <img src="/images/trash-fill.svg" alt="delete button" />
+                    </a>
+                </div>
+            </div>
+        <% } %>
+
         <div class="row d-flex">
             <div class="col-12 mx-auto mb-4 mt-2">
                 <div class="my-3">
@@ -39,14 +58,22 @@
                         <button type="submit" class="btn custom-btn">Post Comment</button>
                     </form>
                 </div>
+
                 <% if (books[i].comments.length > 0) { %>
                     <div class="my-4">
                         <h3 id="comment">Comments</h6>
                     </div>
 
                     <% for (let j = 0; j < books[i].comments.length; j++) { %>
-                        <p class="comment-author"><%= books[i].comments[j].username %></p>
+                        <p class="comment-author text-decoration-underline"><%= books[i].comments[j].username %></p>
                         <p class="comment-text"><%= books[i].comments[j].comment %></p>
+                        <% if ((locals.user && user.username === books[i].comments[j].username) || (locals.user && user.id === 1)) { %>
+                            <div class="col-12 text-end">
+                                <a href="/delete-comment/<%= books[i].comments[j].comment_id %>" class="text-decoration-none">
+                                    <img src="/images/trash-fill.svg" alt="delete button" />
+                                </a>
+                            </div>
+                        <% } %>
                     <% } %>
                 <% } %>
             </div> 

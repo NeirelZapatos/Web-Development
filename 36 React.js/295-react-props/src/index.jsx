@@ -31,8 +31,7 @@ root.render(
         img="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTCvP9vTHcvc8Hqteid1LIp_PhRHHAZ0RS89J-E321FPty_I6Ml"
         tel="+098-776-2341"
         email="themanny@gmail.com"
-      />
-      
+      /> 
     </div>
   </React.StrictMode>
 );

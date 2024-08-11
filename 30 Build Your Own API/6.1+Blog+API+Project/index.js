@@ -90,7 +90,6 @@ app.delete("/posts/:id", (req, res) => {
   } else {
     res.status(404).json({error: `Post with id ${req.params.id} not found. No posts were deleted`});
   }
-  
 });
 
 app.listen(port, () => {

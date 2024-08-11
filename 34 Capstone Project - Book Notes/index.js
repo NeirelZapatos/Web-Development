@@ -34,7 +34,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-const db = new pg.Client({
+const db = new pg.Pool({
     user: process.env.DB_USERNAME,
     host: process.env.DB_HOST,
     database: process.env.DATABASE,
@@ -46,7 +46,7 @@ db.connect();
 async function getBooks() {
     // Query to get books and their comments
     const result = await db.query(`
-        SELECT books.*, comments.comment, users.username
+        SELECT books.*, comments.comment, users.username, comments.id AS comment_id
         FROM books
         LEFT JOIN comments ON books.id = comments.book_id
         LEFT JOIN users ON comments.user_id = users.id
@@ -55,7 +55,7 @@ async function getBooks() {
     // Process the result to group comments by book
     const books = {};
     result.rows.forEach(row => {
-        const { id, title, author, summary, notes, rating, isbn, comment, username } = row;
+        const { id, title, author, summary, notes, rating, isbn, comment, username, comment_id } = row;
         if (!books[id]) {
             books[id] = {
                 id, title, author, summary, notes, rating, isbn,
@@ -63,7 +63,7 @@ async function getBooks() {
             };
         }
         if (comment) {
-            books[id].comments.push({comment, username});
+            books[id].comments.push({comment, username, comment_id});
         }
     });
     return Object.values(books);
@@ -74,9 +74,11 @@ async function getOneBook(id) {
         [id]
     );
     const book = result.rows;
+
     if(book.length !== 0) {
         return book[0];
     }
+
     console.log("No book found");
     return null;
 }
@@ -84,8 +86,10 @@ async function getOneBook(id) {
 app.get("/", async (req, res) => {
     console.log("Current User: ");
     console.log(req.user);
+
     try {
         const bookInfo = await getBooks();
+
         if(bookInfo.length === 0) {
             res.send("No books found");
         } else if (req.isAuthenticated()){
@@ -109,6 +113,7 @@ app.get("/", async (req, res) => {
 app.get("/notes/:id", async (req, res) => {
     try {
         const bookInfo = await getOneBook(req.params.id);
+
         if (bookInfo === null) {
             res.send("Book of id was not found");
         } else {
@@ -168,76 +173,67 @@ app.get("/auth/google/success",
         failureRedirect: "/log-in"
     })
 );
+
+app.get("/update-book/:id", (req, res) => {
+
+});
+
+app.get("/delete-book/:id", async (req, res) => {
+    if (req.isAuthenticated() && req.user.id === 1) {
+        const bookID = req.params.id;
+        try {
+            await db.query(`DELETE FROM comments WHERE $1=book_id`, 
+                [bookID]
+            );
+            await db.query("DELETE FROM books WHERE id=$1",
+                [bookID]
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    res.redirect("/");
+});
+
+app.get("/delete-comment/:id", async (req, res) => {
+    if (req.isAuthenticated()) {
+        const commentID = req.params.id;
+        console.log(commentID);
+        try {
+            await db.query(`DELETE FROM comments WHERE $1=comments.id`,
+                [commentID]
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    res.redirect("/");
+});
  
 app.post("/add-book", async (req, res) => {
-    const title = req.body.title
-    const apiTitle = title.replace(" ", "+");
+    if (req.isAuthenticated() && req.user.id === 1){
+        const isbn = req.body.isbn;
 
-    try {
-        const response = await axios.get(`https://openlibrary.org/search.json?q=${apiTitle}&limit=1`);
-        const bookSearch = response.data;
-        const bookList = bookSearch.docs;
-        const book = bookList[0];
-        let validIsbn;
+        try {
+            const response = await axios.get(`http://openlibrary.org/api/volumes/brief/isbn/${isbn}.json`);
+            const result = response.data.records;
+            const path = Object.keys(result)[0];
+            const book = result[path].data;
 
-        let foundCover = false;
-        let i = 0;
-        while (!foundCover) {
-            try {
-                const testing = await axios.get(`https://covers.openlibrary.org/b/isbn/${book.isbn[i]}-L.jpg?default=false`) 
-                validIsbn = book.isbn[i];
-                foundCover = true;
-            } catch (err) {
-                console.log(err.response.data);
-                i++;
-            }
-            if (i >= book.isbn.length) {
-                console.log("Cover not found")
-                continue
-            }
-        }
-        
-        if (bookList.length === 0) {
-            res.send("Make sure you entered the correct title");
-        } else if (req.isAuthenticated() && req.user.id === 1){
             res.render(__dirname + "/views/add-book.ejs", {
                 loggedIn: true,
                 user: req.user,
                 book: book,
-                isbn: validIsbn
             });
-        } else {
-            res.redirect("/");
+        } catch (err) {
+            console.log(err);
         }
-    } catch (err) {
-        console.log(err);
-    }
-    
-    // const title = req.body.title;
-    // const apiTitle = title.replace(" ", "+");
-    // const author = req.body.author;
-    // const summary = req.body.summary;
-    // const notes = req.body.notes;
-    // const rating = req.body.rating;
-    // const isbn = req.body.isbn;
+    } 
+    res.redirect("/");
+});
 
+app.post("/confirm-book/", (req, res) => {
 
-
-    // try {
-    //     const result = await db.query(`SELECT * FROM books WHERE isbn = $1;`,
-    //         [isbn]
-    //     );
-    //     if (result.rows != 0) {
-    //         res.send("That book is already added");
-    //     } else {
-    //         await db.query(`INSERT INTO books (title, author, summary, notes, rating, isbn) VALUES ($1, $2, $3, $4, $5, $6);`,
-    //             [title, author, summary, notes, rating, isbn]
-    //         );
-    //         res.redirect("/");
-    //     }
-    // } catch (err) {
-    //     console.log(err);
-    // }
 });
 
 app.post("/add-comment/:id", async (req, res) => {
