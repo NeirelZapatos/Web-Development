@@ -3,26 +3,30 @@
     <div class="container">
         <div class="row flex-lg-row flex-column">
             <div class="col-lg-4 col-sm-12">
-                <img src="https://covers.openlibrary.org/b/isbn/<%= book.identifiers.isbn_13 %>-L.jpg" alt="<%= book.title %> cover" class="img-fluid"/>
+                <img src="https://covers.openlibrary.org/b/isbn/<%= book.isbn %>-L.jpg" alt="<%= book.title %> cover" class="img-fluid"/>
             </div>
             <div class="col-lg-8 col-sm-12">
                 <div class="mb-3">
-                    <form action="/confirm-book" method="POST">
+                    <form action="/update-book/<%= book.id %>" method="POST">
                         <label for="titleInput" class="form-label title">Title</label>
                         <input type="text" id="titleInput" name="title" placeholder="Add the title" class="form-control form-control-lg mb-2" value="<%= book.title %>" required>
 
                         <label for="authorInput" class="form-label title">Author</label>
-                        <input type="text" id="authorInput" name="author" placeholder="Add the author" class="form-control mb-2" value="<%= book.authors[0].name %>" required>
+                        <input type="text" id="authorInput" name="author" placeholder="Add the author" class="form-control mb-2" value="<%= book.author %>" required>
 
                         <label for="summaryInput" class="form-label title">Summary</label>
-                        <textarea type="text" id="summaryInput" name="summary" placeholder="Add a summary" class="form-control mb-2" rows="5" required></textarea>
+                        <textarea type="text" id="summaryInput" name="summary" placeholder="Add a summary" class="form-control mb-2" rows="5" required><%= book.summary %></textarea>
 
                         <label for="reviewInput" class="form-label title">Review</label>
-                        <textarea type="text" id="reviewInput" name="review" placeholder="Add a review" class="form-control mb-2" rows="5" required></textarea>
+                        <textarea type="text" id="reviewInput" name="review" placeholder="Add a review" class="form-control mb-2" rows="5" required><%= book.notes %></textarea>
 
                         <label for="ratingInput" class="form-label title">Rating</label>
                         <select id="ratingInput" class="form-select mb-2" name="rating" required>
-                            <option value="" disabled selected>Select your rating</option>
+                            <option value="<%= book.rating %>" selected>
+                                <% for (let i = 0; i < book.rating; i++) { %>
+                                    ⭐
+                                <% } %>
+                            </option>
                             <option value="1">⭐</option>
                             <option value="2">⭐⭐</option>
                             <option value="3">⭐⭐⭐</option>
@@ -31,9 +35,9 @@
                         </select>
 
                         <label for="isbnInput" class="form-label title">ISBN</label>
-                        <input type="text" id="isbnInput" name="isbn" placeholder="Add the isbn" class="form-control mb-2" value="<%= book.identifiers.isbn_13 ||  book.identifiers.isbn_10%>" required>
+                        <input type="text" id="isbnInput" name="isbn" placeholder="Add the isbn" class="form-control mb-2" value="<%= book.isbn %>" required>
 
-                        <button type="submit" class="btn custom-btn mt-3">Add Book</button>
+                        <button type="submit" class="btn custom-btn mt-3">Update Book</button>
                     </form>
                 </div> 
             </div>

@@ -34,18 +34,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-// const db = new pg.Pool({
-//     user: process.env.DB_USERNAME,
-//     host: process.env.DB_HOST,
-//     database: process.env.DATABASE,
-//     password: process.env.DB_PASSWORD,
-//     port: process.env.DB_PORT
-// });
-
 const db = new pg.Pool({
-    connectionString: process.env.POSTGRES_URL,
+    user: process.env.DB_USERNAME,
+    host: process.env.DB_HOST,
+    database: process.env.DATABASE,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT
 });
-db.connect();
+
+// const db = new pg.Pool({
+//     connectionString: process.env.POSTGRES_URL,
+// });
 
 async function getBooks() {
     // Query to get books and their comments
@@ -73,19 +72,19 @@ async function getBooks() {
     return Object.values(books);
 }
 
-async function getOneBook(id) {
-    const result = await db.query("SELECT * FROM books WHERE id = $1;",
-        [id]
-    );
-    const book = result.rows;
+// async function getOneBook(id) {
+//     const result = await db.query("SELECT * FROM books WHERE id = $1;",
+//         [id]
+//     );
+//     const book = result.rows;
 
-    if(book.length !== 0) {
-        return book[0];
-    }
+//     if(book.length !== 0) {
+//         return book[0];
+//     }
 
-    console.log("No book found");
-    return null;
-}
+//     console.log("No book found");
+//     return null;
+// }
 
 app.get("/", async (req, res) => {
     console.log("Current User: ");
@@ -112,25 +111,6 @@ app.get("/", async (req, res) => {
     }
 });
 
-app.get("/notes/:id", async (req, res) => {
-    try {
-        const bookInfo = await getOneBook(req.params.id);
-
-        if (bookInfo === null) {
-            res.send("Book of id was not found");
-        } else {
-            res.render(__dirname + "/views/notes.ejs", {
-                book: bookInfo,
-                loggedIn: req.isAuthenticated(),
-                // username: req.user.username
-            });
-        }
-    } catch (err) {
-        console.log(err);
-        res.redirect("/");
-    }   
-});
-
 app.get("/log-in", (req, res) => {
     res.render(__dirname + "/views/log-in.ejs", {
         loggedIn: false
@@ -141,16 +121,6 @@ app.get("/sign-up", (req, res) => {
     res.render(__dirname + "/views/sign-up.ejs", {
         loggedIn: false
     });
-});
-
-app.get("/add-book", (req, res) => {
-    if(req.isAuthenticated() && req.user.id === 1) {
-        res.render(__dirname + "/views/add-book.ejs", {
-            loggedIn: true
-        });
-    } else {
-        res.redirect("/");
-    }
 });
 
 app.get("/log-out", (req, res) => {
@@ -176,9 +146,31 @@ app.get("/auth/google/success",
     })
 );
 
-app.get("/update-book/:id", (req, res) => {
+app.get("/update-book/:id", async (req, res) => {
+    if (req.isAuthenticated && req.user.id === 1) {
+        const bookID = req.params.id;
 
+        try {
+            const result = await db.query("SELECT * FROM books WHERE id = $1",
+                [bookID]
+            );
+            const book = result.rows[0];
+
+            res.render(__dirname + "/views/edit-book.ejs", {
+                loggedIn: true,
+                user: req.user,
+                book: book
+            });
+        } catch (err) {
+            console.log(err)
+            res.redirect("/");
+        }
+    } else {
+        res.redirect("/");
+    }
 });
+    
+    
 
 app.get("/delete-book/:id", async (req, res) => {
     if (req.isAuthenticated() && req.user.id === 1) {
@@ -211,9 +203,30 @@ app.get("/delete-comment/:id", async (req, res) => {
     }
     res.redirect("/");
 });
+
+app.post("/update-book/:id", async (req, res) => {
+    if (req.isAuthenticated() && req.user.id === 1){
+        const title = req.body.title;
+        const author = req.body.author;
+        const summary = req.body.summary;
+        const review = req.body.review;
+        const rating = req.body.rating;
+        const isbn = req.body.isbn;
+        const bookID = req.params.id;
+
+        try {
+            await db.query("UPDATE books SET title = $1, author = $2, summary = $3, notes = $4, rating = $5, isbn = $6 WHERE id = $7;",
+                [title, author, summary, review, rating, isbn, bookID]
+            );
+        } catch (err) {
+            console.log(err);
+        }     
+    } 
+    res.redirect("/");
+});
  
 app.post("/add-book", async (req, res) => {
-    if (req.isAuthenticated() && req.user.id === 1){
+    if (req.isAuthenticated() && req.user.id === 1) {
         const isbn = req.body.isbn;
 
         try {
@@ -229,13 +242,31 @@ app.post("/add-book", async (req, res) => {
             });
         } catch (err) {
             console.log(err);
+            res.redirect("/");
         }
-    } 
-    res.redirect("/");
+    } else {
+        res.redirect("/");
+    }
 });
 
-app.post("/confirm-book/", (req, res) => {
+app.post("/confirm-book", async (req, res) => {
+    if (req.isAuthenticated() && req.user.id === 1) {
+        const title = req.body.title;
+        const author = req.body.author;
+        const summary = req.body.summary;
+        const review = req.body.review;
+        const rating = req.body.rating;
+        const isbn = req.body.isbn;
 
+        try {
+            await db.query("INSERT INTO books (title, author, summary, notes, rating, isbn) VALUES ($1, $2, $3, $4, $5, $6);",
+                [title, author, summary, review, rating, isbn]
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    res.redirect("/");
 });
 
 app.post("/add-comment/:id", async (req, res) => {

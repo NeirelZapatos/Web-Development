@@ -20,7 +20,6 @@
             <div class="col-lg-4 col-sm-12">
                 <img src="https://covers.openlibrary.org/b/isbn/<%= books[i].isbn %>-L.jpg" alt="<%= books[i].title %> cover" class="img-fluid"/>
             </div>
-
             <div class="col-lg-8 col-sm-12">
                 <div class="mb-3">
                     <h1 class="title"><%= books[i].title %></h1>
@@ -33,6 +32,9 @@
         <div class="row">
             <div class="col-12 my-3">
                 <h2 id="review-title">Review</h2>
+                <% for (let j = 0; j < books[i].rating; j++) { %>
+                    ⭐
+                <% } %>
             </div>
             <p id="review-text"><%= books[i].notes %></p>
         </div>
@@ -53,7 +55,7 @@
         <div class="row d-flex">
             <div class="col-12 mx-auto mb-4 mt-2">
                 <div class="my-3">
-                    <form action="/add-comment/<%= books[i].id %>" method="POST">
+                    <form action="/confirm-book" method="POST">
                         <input type="text" name="comment" placeholder="Add a Comment" class="form-control mb-2" required>
                         <button type="submit" class="btn custom-btn">Post Comment</button>
                     </form>
