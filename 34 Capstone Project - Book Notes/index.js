@@ -34,12 +34,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
+// const db = new pg.Pool({
+//     user: process.env.DB_USERNAME,
+//     host: process.env.DB_HOST,
+//     database: process.env.DATABASE,
+//     password: process.env.DB_PASSWORD,
+//     port: process.env.DB_PORT
+// });
+
 const db = new pg.Pool({
-    user: process.env.DB_USERNAME,
-    host: process.env.DB_HOST,
-    database: process.env.DATABASE,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT
+    connectionString: process.env.POSTGRES_URL,
 });
 db.connect();
 
@@ -89,10 +93,8 @@ app.get("/", async (req, res) => {
 
     try {
         const bookInfo = await getBooks();
-
-        if(bookInfo.length === 0) {
-            res.send("No books found");
-        } else if (req.isAuthenticated()){
+        
+        if (req.isAuthenticated()){
             res.render(__dirname + "/views/index.ejs", {
                 books: bookInfo,
                 loggedIn: true,
