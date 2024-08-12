@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row flex-lg-row flex-column">
             <div class="col-lg-4 col-sm-12">
-                <img src="https://covers.openlibrary.org/b/isbn/<%= book.identifiers.isbn_13 %>-L.jpg" alt="<%= book.title %> cover" class="img-fluid"/>
+                <img src="https://covers.openlibrary.org/b/isbn/<%= isbn || book.identifiers.isbn_13 ||  book.identifiers.isbn_10 %>-L.jpg" alt="<%= book.title %> cover" class="img-fluid"/>
             </div>
             <div class="col-lg-8 col-sm-12">
                 <div class="mb-3">
@@ -31,7 +31,7 @@
                         </select>
 
                         <label for="isbnInput" class="form-label title">ISBN</label>
-                        <input type="text" id="isbnInput" name="isbn" placeholder="Add the isbn" class="form-control mb-2" value="<%= book.identifiers.isbn_13 ||  book.identifiers.isbn_10%>" required>
+                        <input type="text" id="isbnInput" name="isbn" placeholder="Add the isbn" class="form-control mb-2" value="<%= isbn || book.identifiers.isbn_13 ||  book.identifiers.isbn_10 %>" required>
 
                         <button type="submit" class="btn custom-btn mt-3">Add Book</button>
                     </form>

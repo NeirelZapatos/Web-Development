@@ -247,6 +247,7 @@ app.post("/add-book", async (req, res) => {
                 loggedIn: true,
                 user: req.user,
                 book: book,
+                isbn: isbn
             });
         } catch (err) {
             console.log(err);
