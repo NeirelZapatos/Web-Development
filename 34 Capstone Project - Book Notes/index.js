@@ -310,7 +310,11 @@ app.post("/register", async (req, res) => {
             [username]
         );
         if (checkResult.rows.length > 0) {
-            res.send("Username unavailable");
+            res.render(__dirname + "/views/sign-up.ejs", {
+                books: bookInfo,
+                loggedIn: false,
+                erroeMessage: "That username is already taken"
+            }); 
         } else {
             bcrypt.hash(password, saltRounds, async (err, hash) => {
                 if (err) {
