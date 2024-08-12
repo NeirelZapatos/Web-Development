@@ -12,6 +12,7 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+let failedLogin = false;
 const saltRounds = 10;
 const app = express();
 const port = 3000;
@@ -112,9 +113,16 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/log-in", (req, res) => {
-    res.render(__dirname + "/views/log-in.ejs", {
-        loggedIn: false
-    }); 
+    if (failedLogin) {
+        res.render(__dirname + "/views/log-in.ejs", {
+            loggedIn: false,
+            errorMessage: "Invalid username or password"
+        }); 
+    } else {
+        res.render(__dirname + "/views/log-in.ejs", {
+            loggedIn: false,
+        });
+    }
 });
 
 app.get("/sign-up", (req, res) => {
@@ -341,15 +349,17 @@ passport.use("local",
                     } else {
                         if (valid) {
                             console.log("Log in successful");
+                            failedLogin = false;
                             return cb(null, user);
-                            console.log(req.user.username);
                         } else {
+                            failedLogin = true;
                             return cb(null, false);
                         }
                     }
                 });
             } else {
-                return cb("User not found")
+                failedLogin = true;
+                return cb(null, false);
             }
         } catch (err) {
             console.log(err);

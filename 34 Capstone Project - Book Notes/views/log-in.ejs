@@ -7,6 +7,11 @@
       <div class="col-sm-8">
         <div class="card">
           <div class="card-body">
+            <% if (locals.errorMessage) { %>
+              <div class="alert alert-danger" role="alert">
+                <%= errorMessage %>
+              </div>
+            <% } %>
 
             <!-- Makes POST request to /login route -->
             <form action="/log-in" method="POST">
