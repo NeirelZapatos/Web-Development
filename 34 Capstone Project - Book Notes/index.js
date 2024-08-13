@@ -40,7 +40,10 @@ const db = new pg.Pool({
     host: process.env.DB_HOST,
     database: process.env.DATABASE,
     password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT
+    port: process.env.DB_PORT,
+    connectionTimeoutMillis: 20000,
+    idleTimeoutMillis: 20000,
+    allowExitOnIdle: false
 });
 
 // const db = new pg.Pool({
