@@ -1,18 +1,18 @@
 import React from "react";
 
-
-
-function App(props) {
-  const [time, getTime] = props;
+function App() {
+  const [time, setTime] = React.useState(new Date().toLocaleTimeString([], {hour12: false}));
 
   function getTime() {
-    currTime = new Date().toLocaleTimeString();
+    setTime(new Date().toLocaleTimeString([], {hour12: false}));
   }
+
+  setInterval(getTime, 1000);
 
   return (
     <div className="container">
-      <h1>{props.currentTime}</h1>
-      <button>Get Time</button>
+      <h1>{time}</h1>
+      <button onClick={getTime}>Get Time</button>
     </div>
   );
 }
