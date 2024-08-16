@@ -5,7 +5,6 @@ function InputArea(props) {
 
   function handleChange(event) {
     const newInputText = event.target.value;
-
     setInputText(newInputText);
   }
 
